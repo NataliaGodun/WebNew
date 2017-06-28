@@ -29,34 +29,23 @@ public class Authorization implements Command {
 		String page = null;
 		try {
 			user = userService.authorization(login, password);
-			request.setAttribute("user", user);
-			page="WEB-INF/jsp/main.jsp";
-			
+			if (user!=null)	{
+				request.setAttribute("user", user);
+			     page="WEB-INF/jsp/main.jsp";
+			}
+			else{
+				request.setAttribute("errorMessage", "wrong login or password");
+				page="index.jsp";
+				
+			}
 		} catch (ServiceException e) {
-			request.setAttribute("errorMessage", "wrong login or password");
-			page="index.jsp";
-			
 			e.printStackTrace();
 		}
-		
-	
-		
-		
-		/*String page;
-		if (user!=null){
-			request.setAttribute("user", user);
-			page="WEB-INF/jsp/main.jsp";
-		}else{
-			request.setAttribute("errorMessage", "wrong login or password");
-			page="index.jsp";
 			
-		}*/
-		
 		RequestDispatcher dispatcher=request.getRequestDispatcher(page);
 		
 			dispatcher.forward(request, response);
-		
-		
+			
 	}
 
 }
