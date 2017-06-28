@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import by.htp.connection.pool.CPFactory;
-import by.htp.connection.pool.ConPool;
+import by.htp.connection.pool.ConnectionPool;
 import by.htp.connection.pool.ConnectionPoolException;
 import by.htp.library.dao.UserDAO;
 import by.htp.library.domain.User;
@@ -25,7 +25,7 @@ public class SQLUserDAO implements UserDAO{
 		
 		try {
 			CPFactory ObjectFactory = CPFactory.getInstance();
-			ConPool cp =ObjectFactory.getConPool();
+			ConnectionPool cp =ObjectFactory.getConPool();
 			
 
 			try {

@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import by.htp.connection.pool.CPFactory;
-import by.htp.connection.pool.ConPool;
+import by.htp.connection.pool.ConnectionPool;
 import by.htp.connection.pool.ConnectionPoolException;
 import by.htp.library.command.Command;
 
@@ -25,7 +25,7 @@ public class Controller extends HttpServlet {
 		super.init(config);
 		//DBResourceManager db=DBResourceManager.getInstance();
 		CPFactory ObjectFactory = CPFactory.getInstance();
-		ConPool cp =ObjectFactory.getConPool();
+		ConnectionPool cp =ObjectFactory.getConPool();
 		try {
 			cp.initPoolData();
 		} catch (ConnectionPoolException e) {
@@ -49,7 +49,7 @@ public class Controller extends HttpServlet {
 	public void destroy(){
 		super.destroy();
 		CPFactory ObjectFactory = CPFactory.getInstance();
-		ConPool cp =ObjectFactory.getConPool();
+		ConnectionPool cp =ObjectFactory.getConPool();
 		cp.dispose();
 	}
 

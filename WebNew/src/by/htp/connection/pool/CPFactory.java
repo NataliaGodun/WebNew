@@ -2,7 +2,7 @@ package by.htp.connection.pool;
 
 public final class CPFactory {
 	private static final CPFactory instance = new CPFactory();
-	private final ConPool a = new ConnectionPool();
+	private final ConnectionPool a = new ConnectionPoolimpl();
 
 	private CPFactory() {
 
@@ -12,7 +12,7 @@ public final class CPFactory {
 		return instance;
 	}
 
-	public ConPool getConPool() {
+	public ConnectionPool getConPool() {
 		return a;
 	}
 }
