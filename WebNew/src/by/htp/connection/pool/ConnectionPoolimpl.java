@@ -39,11 +39,8 @@ public final class ConnectionPoolimpl implements ConnectionPool{
 		this.url = "jdbc:mysql://127.0.0.1/site?useSSL=false";
 		this.user = "root";
 		this.password = "ER567ghm";
-		try {
-			this.poolSize =2;
-		} catch (NumberFormatException e) {
-			poolSize = 2;
-		}
+	    this.poolSize =2;
+		
 	}
 	
 	public void initPoolData() throws ConnectionPoolException {

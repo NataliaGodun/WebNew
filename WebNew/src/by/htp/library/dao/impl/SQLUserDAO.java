@@ -4,7 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import by.htp.connection.pool.CPFactory;
+import by.htp.connection.pool.ConnectionPoolFactory;
 import by.htp.connection.pool.ConnectionPool;
 import by.htp.connection.pool.ConnectionPoolException;
 import by.htp.library.dao.UserDAO;
@@ -29,8 +29,8 @@ public class SQLUserDAO implements UserDAO {
 		User user = null;
 
 		try {
-			CPFactory ObjectFactory = CPFactory.getInstance();
-			ConnectionPool cp = ObjectFactory.getConPool();
+			ConnectionPoolFactory ObjectCPFactory = ConnectionPoolFactory.getInstance();
+			ConnectionPool cp = ObjectCPFactory.getConnectionPool();
 
 			con = cp.takeConnection();
 			PreparedStatement ps = con.prepareStatement(SelectUser);
@@ -62,8 +62,8 @@ public class SQLUserDAO implements UserDAO {
 		User user = null;
 		try {
 
-			CPFactory ObjectFactory = CPFactory.getInstance();
-			ConnectionPool cp = ObjectFactory.getConPool();
+			ConnectionPoolFactory ObjectCPFactory = ConnectionPoolFactory.getInstance();
+			ConnectionPool cp = ObjectCPFactory.getConnectionPool();
 			con = cp.takeConnection();
 
 			PreparedStatement ps = con.prepareStatement(addUser);

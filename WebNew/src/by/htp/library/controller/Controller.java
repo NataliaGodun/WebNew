@@ -6,9 +6,9 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import by.htp.connection.pool.CPFactory;
 import by.htp.connection.pool.ConnectionPool;
 import by.htp.connection.pool.ConnectionPoolException;
+import by.htp.connection.pool.ConnectionPoolFactory;
 import by.htp.library.command.Command;
 
 public class Controller extends HttpServlet {
@@ -21,11 +21,10 @@ public class Controller extends HttpServlet {
 
 	@Override
 	public void init(ServletConfig config) throws ServletException {
-		// TODO Auto-generated method stub
+		
 		super.init(config);
-		//DBResourceManager db=DBResourceManager.getInstance();
-		CPFactory ObjectFactory = CPFactory.getInstance();
-		ConnectionPool cp =ObjectFactory.getConPool();
+		ConnectionPoolFactory ObjectCPFactory = ConnectionPoolFactory.getInstance();
+		ConnectionPool cp =ObjectCPFactory.getConnectionPool();
 		try {
 			cp.initPoolData();
 		} catch (ConnectionPoolException e) {
@@ -48,8 +47,8 @@ public class Controller extends HttpServlet {
 	}
 	public void destroy(){
 		super.destroy();
-		CPFactory ObjectFactory = CPFactory.getInstance();
-		ConnectionPool cp =ObjectFactory.getConPool();
+		ConnectionPoolFactory ObjectFactory = ConnectionPoolFactory.getInstance();
+		ConnectionPool cp =ObjectFactory.getConnectionPool();
 		cp.dispose();
 	}
 
