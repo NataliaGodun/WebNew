@@ -9,11 +9,10 @@
 <body>
 	<form action="Controller" method="post">
 		<input type="hidden" name="command" value="registration" /> Name:<br />
-		<input type="text" name="name" value="" /><br /> Surname:<br /> <input
-			type="text" name="surname" value="" /><br /> Login:<br /> <input
-			type="text" name="login" value="" /><br /> Password:<br /> <input
-			type="password" name="password" value="" /><br /> <input
-			type="submit" value="registration" />
+		<input type="text" name="name" value="" /><br /> Login:<br /> 
+		<input type="text" name="login" value="" /><br /> Password:<br />
+		<input type="password" name="password" value="" /><br />
+		<input type="submit" value="registration" />
 	</form>
 </body>
 </html>

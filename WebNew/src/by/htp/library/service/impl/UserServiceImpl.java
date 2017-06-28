@@ -22,21 +22,22 @@ public class UserServiceImpl implements UserService {
 		try {
 			return userDAO.authorization(login,password);
 		} catch (DAOException e) {
-			System.out.println(" ServiceException");
 			throw new ServiceException(e);
 		}	
 	}
 
 	@Override
-	public User registration(String name, String surname, String login, String password) throws ServiceException {
+	public User registration(String name, String login, String password) throws ServiceException {
 		if (login==null||login.isEmpty()){
 			throw new ServiceException("Incorrect login");
 		}
 		DAOFactory daoObjectFactory=DAOFactory.getInstance();
 		UserDAO userDAO=daoObjectFactory.getUserDAO();
-		return userDAO.registration(name,surname,login,password);
-		
+		try {
+			return userDAO.registration(name,login,password);
+		} catch (DAOException e) {
+			throw new ServiceException(e);
+		}	
 	}
 
-	
 }

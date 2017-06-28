@@ -19,12 +19,12 @@ public class Registration implements Command {
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 				String name;
-				String surname;
+				//String surname;
 				String login;
 				String password;
 				
 				name=request.getParameter("name");
-				surname=request.getParameter("surname");
+				//surname=request.getParameter("surname");
 				login=request.getParameter("login");
 				password=request.getParameter("password");
 				System.out.println(login);
@@ -34,7 +34,7 @@ public class Registration implements Command {
 				
 				User user = null;
 				try {
-					user = userService.registration(name, surname, login, password);
+					user = userService.registration(name, login, password);
 				} catch (ServiceException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
