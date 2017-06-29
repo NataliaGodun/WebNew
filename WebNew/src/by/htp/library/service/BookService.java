@@ -5,4 +5,6 @@ import by.htp.service.exception.ServiceException;
 
 public interface BookService {
 Book showBooks () throws ServiceException;
+
+Book addBook(String nazvanie, String avtor) throws ServiceException;
 }

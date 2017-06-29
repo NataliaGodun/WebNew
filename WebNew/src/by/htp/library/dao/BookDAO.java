@@ -5,4 +5,6 @@ import by.htp.library.domain.Book;
 
 public interface BookDAO {
 Book showBook () throws DAOException;
+
+Book addBook(String nazvanie, String avtor) throws DAOException;
 }

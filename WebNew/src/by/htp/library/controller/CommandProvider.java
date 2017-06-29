@@ -4,8 +4,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 import by.htp.library.command.Command;
+import by.htp.library.command.impl.AddNewBook;
 import by.htp.library.command.impl.Authorization;
 import by.htp.library.command.impl.Registration;
+import by.htp.library.command.impl.ShowAddNewBookForm;
 import by.htp.library.command.impl.ShowAll;
 
 
@@ -16,6 +18,8 @@ public class CommandProvider {
 		commands.put(CommandName.AUTHORIZATION, new Authorization());
 		commands.put(CommandName.REGISTRATION, new Registration());
 		commands.put(CommandName.SHOWALL, new ShowAll());
+		commands.put(CommandName.SHOWADDNEWBOOKFORM, new ShowAddNewBookForm());
+		commands.put(CommandName.ADDNEWBOOK, new AddNewBook());
 	}
 
 	public Command getCommand(String commandName) {
