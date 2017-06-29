@@ -16,7 +16,12 @@ import by.htp.library.service.factory.ServiceFactory;
 import by.htp.service.exception.ServiceException;
 
 public class ShowAll implements Command {
-
+	private static final String Book = "book";
+	private static final String ErrorMessage = "ErrorMessage";
+	private static final String infoMessage = " Thre are no available book";
+	private static final String infoMessageError = "Sorry, it is impossible to display the page";
+    private static final String ShowAlljsp = "WEB-INF/jsp/ShowAll.jsp";
+	private static final String mainjsp = "WEB-INF/jsp/main.jsp";
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
@@ -27,16 +32,18 @@ public class ShowAll implements Command {
 		try {
 			book = bookService.showBooks();
 			if (book!=null)	{
-				request.setAttribute("book", book);
-			     page="WEB-INF/jsp/ShowAll.jsp";
+				request.setAttribute(Book, book);
+			     page=ShowAlljsp;
 			}
 			else{
-				request.setAttribute("errorMessage", "net");
-				page="WEB-INF/jsp/main.jsp";
+				request.setAttribute(ErrorMessage, infoMessage);
+				page=mainjsp;
 				
 			}
 		} catch (ServiceException e) {
 			e.printStackTrace();
+			request.setAttribute(ErrorMessage, infoMessageError);
+			page=mainjsp;
 		}
 		RequestDispatcher dispatcher=request.getRequestDispatcher(page);
 		

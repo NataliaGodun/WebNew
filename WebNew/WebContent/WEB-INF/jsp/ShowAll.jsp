@@ -9,7 +9,7 @@
 </head>
 <body>
 <h1>
-books:
+Books:
 <br/>
 		<c:out value=" ${requestScope.book.nazvanie}"  />
 		<c:out value=" ${requestScope.book.avtor}"  />

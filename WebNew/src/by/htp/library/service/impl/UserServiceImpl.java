@@ -1,7 +1,5 @@
 package by.htp.library.service.impl;
 
-
-
 import by.htp.library.dao.UserDAO;
 import by.htp.library.dao.exception.DAOException;
 import by.htp.library.dao.factory.DAOFactory;
@@ -10,11 +8,12 @@ import by.htp.library.service.UserService;
 import by.htp.service.exception.ServiceException;
 
 public class UserServiceImpl implements UserService {
-
+	private static final String infoMessage = "Incorrect login";
+	
 	@Override
 	public User authorization(String login, String password) throws ServiceException{
 		if (login==null||login.isEmpty()){
-			throw new ServiceException("Incorrect login");
+			throw new ServiceException(infoMessage);
 		}
 		
 		DAOFactory daoObjectFactory=DAOFactory.getInstance();
@@ -29,7 +28,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public User registration(String name, String login, String password) throws ServiceException {
 		if (login==null||login.isEmpty()){
-			throw new ServiceException("Incorrect login");
+			throw new ServiceException(infoMessage);
 		}
 		DAOFactory daoObjectFactory=DAOFactory.getInstance();
 		UserDAO userDAO=daoObjectFactory.getUserDAO();

@@ -11,7 +11,7 @@ import by.htp.service.exception.ServiceException;
 public class BookServiceImpl implements BookService {
 	public Book showBooks () throws ServiceException{
 		
-	
+	//опнбепйю!!!!!!!!!!!
 		DAOFactory daoObjectFactory=DAOFactory.getInstance();
 		BookDAO bookDAO=daoObjectFactory.getBookDAO();
 		try {

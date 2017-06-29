@@ -15,16 +15,23 @@ import by.htp.library.service.factory.ServiceFactory;
 import by.htp.service.exception.ServiceException;
 
 public class Registration implements Command {
-
+	private static final String Name = "name";
+	private static final String Login = "login";
+	private static final String Password = "password";
+	private static final String User = "user";
+	private static final String ErrorMessage = "errorMessage";
+	private static final String infoMessage = "The user with such login already exists";
+	private static final String mainjsp = "WEB-INF/jsp/main.jsp";
+	private static final String indexjsp = "index.jsp";
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 				String name;
 				String login;
 				String password;
 				
-				name=request.getParameter("name");
-				login=request.getParameter("login");
-				password=request.getParameter("password");
+				name=request.getParameter(Name);
+				login=request.getParameter(Login);
+				password=request.getParameter(Password);
 				
 				ServiceFactory factory=ServiceFactory.getInstance();
 				UserService userService=factory.getUserService();
@@ -41,11 +48,11 @@ public class Registration implements Command {
 				
 				String page;
 				if (user!=null){
-					request.setAttribute("user", user);
-					page="WEB-INF/jsp/main.jsp";
+					request.setAttribute(User, user);
+					page= mainjsp;
 				}else{
-					//request.setAttribute("errorMessage", "wrong login or password");
-					page="index.jsp";
+					request.setAttribute(ErrorMessage, infoMessage);
+					page=indexjsp;
 					
 				}
 				

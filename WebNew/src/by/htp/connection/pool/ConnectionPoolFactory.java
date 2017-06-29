@@ -2,7 +2,7 @@ package by.htp.connection.pool;
 
 public final class ConnectionPoolFactory {
 	private static final ConnectionPoolFactory instance = new ConnectionPoolFactory();
-	private final ConnectionPool a = new ConnectionPoolimpl();
+	private final ConnectionPool pool = new ConnectionPoolimpl();
 
 	private ConnectionPoolFactory() {
 
@@ -13,6 +13,6 @@ public final class ConnectionPoolFactory {
 	}
 
 	public ConnectionPool getConnectionPool() {
-		return a;
+		return pool;
 	}
 }

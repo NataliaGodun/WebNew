@@ -12,10 +12,10 @@
 	<h1>
 		Hello,
 		<c:out value="${ requestScope.user.name} " />
-		<c:out value="${ requestScope.user.role} " />
+		
 	</h1>
 	<br />
-		<form action="Controller" method="post">
+		<form action="Controller" method="get">
 		<input type="hidden" name="command" value="showall" /> <br />
 		<input type="submit" value="Show all books" />
 	</form>

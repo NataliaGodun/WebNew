@@ -14,7 +14,7 @@ import by.htp.library.domain.Book;
 
 
 public class SQLBookDAO implements BookDAO {
-	private static final String SelectBook = "SELECT * FROM book ";
+	private static final String SelectBook = "SELECT * FROM BOOK ";
 	private static final int first = 1;
 	private static final int second = 2;
 	private static final int third = 3;
@@ -47,7 +47,6 @@ public class SQLBookDAO implements BookDAO {
 			throw new DAOException(e);
 		}
 		
-
 		return book;
 		
 		

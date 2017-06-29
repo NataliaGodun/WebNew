@@ -13,8 +13,8 @@ import by.htp.library.command.Command;
 
 public class Controller extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-     private static final CommandProvider provider=new CommandProvider();  
-    
+    private static final CommandProvider provider=new CommandProvider();  
+    private static final String Command="command";  
     public Controller() {
         super();
     }
@@ -28,7 +28,6 @@ public class Controller extends HttpServlet {
 		try {
 			cp.initPoolData();
 		} catch (ConnectionPoolException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -36,10 +35,14 @@ public class Controller extends HttpServlet {
 	}
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		String commandName=request.getParameter(Command);
+		
+		Command command=provider.getCommand(commandName);
+		command.execute(request, response);
 	}
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		String commandName=request.getParameter("command");
+		String commandName=request.getParameter(Command);
 		
 		Command command=provider.getCommand(commandName);
 		command.execute(request, response);
