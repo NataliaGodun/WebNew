@@ -7,7 +7,7 @@ import by.htp.library.dao.exception.DAOException;
 import by.htp.library.dao.factory.DAOFactory;
 import by.htp.library.domain.User;
 import by.htp.library.service.UserService;
-import by.rdtc.service.exception.ServiceException;
+import by.htp.service.exception.ServiceException;
 
 public class UserServiceImpl implements UserService {
 

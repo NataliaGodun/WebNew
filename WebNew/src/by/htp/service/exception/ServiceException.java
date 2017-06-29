@@ -1,4 +1,4 @@
-package by.rdtc.service.exception;
+package by.htp.service.exception;
 
 public class ServiceException extends Exception{
 

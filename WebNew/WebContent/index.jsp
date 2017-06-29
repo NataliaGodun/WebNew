@@ -10,9 +10,9 @@
 <body>
 	<form action="Controller" method="post">
 		<input type="hidden" name="command" value="authorization" /> Login:<br />
-		<input type="text" name="login" value="" /><br /> Password:<br /> <input
-			type="password" name="password" value="" /><br /> <input
-			type="submit" value="sign in" /> <br />
+		<input type="text" name="login" value="" /><br /> Password:<br /> 
+		<input type="password" name="password" value="" /><br />
+		 <input type="submit" value="sign in" /> <br />
 		<c:if test="${not empty  requestScope.errorMessage }">
 			<c:out value="${  requestScope.errorMessage }" />
 		</c:if>

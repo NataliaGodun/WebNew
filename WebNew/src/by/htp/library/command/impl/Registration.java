@@ -12,22 +12,19 @@ import by.htp.library.domain.User;
 
 import by.htp.library.service.UserService;
 import by.htp.library.service.factory.ServiceFactory;
-import by.rdtc.service.exception.ServiceException;
+import by.htp.service.exception.ServiceException;
 
 public class Registration implements Command {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 				String name;
-				//String surname;
 				String login;
 				String password;
 				
 				name=request.getParameter("name");
-				//surname=request.getParameter("surname");
 				login=request.getParameter("login");
 				password=request.getParameter("password");
-				System.out.println(login);
 				
 				ServiceFactory factory=ServiceFactory.getInstance();
 				UserService userService=factory.getUserService();
@@ -36,7 +33,6 @@ public class Registration implements Command {
 				try {
 					user = userService.registration(name, login, password);
 				} catch (ServiceException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				

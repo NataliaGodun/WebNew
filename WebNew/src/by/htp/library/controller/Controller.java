@@ -35,7 +35,7 @@ public class Controller extends HttpServlet {
 			
 	}
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("hi");
+		
 	}
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
@@ -47,8 +47,8 @@ public class Controller extends HttpServlet {
 	}
 	public void destroy(){
 		super.destroy();
-		ConnectionPoolFactory ObjectFactory = ConnectionPoolFactory.getInstance();
-		ConnectionPool cp =ObjectFactory.getConnectionPool();
+		ConnectionPoolFactory ObjectCPFactory = ConnectionPoolFactory.getInstance();
+		ConnectionPool cp =ObjectCPFactory.getConnectionPool();
 		cp.dispose();
 	}
 
