@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import by.htp.connection.pool.ConnectionPool;
 import by.htp.connection.pool.ConnectionPoolException;
@@ -11,7 +12,7 @@ import by.htp.connection.pool.ConnectionPoolFactory;
 import by.htp.library.dao.BookDAO;
 import by.htp.library.dao.exception.DAOException;
 import by.htp.library.domain.Book;
-import by.htp.library.domain.User;
+
 
 
 public class SQLBookDAO implements BookDAO {
@@ -23,11 +24,11 @@ public class SQLBookDAO implements BookDAO {
 	private static final int third = 3;
 
 	@Override
-	public Book showBook() throws DAOException{
+	public ArrayList showBook() throws DAOException{
 		Connection con = null;
 		ResultSet rs = null;
-
-		Book book = null;
+		Book book=null;
+		ArrayList <Book> List = new ArrayList<Book>();
 		try {
 			ConnectionPoolFactory ObjectCPFactory = ConnectionPoolFactory.getInstance();
 			ConnectionPool cp = ObjectCPFactory.getConnectionPool();
@@ -42,6 +43,7 @@ public class SQLBookDAO implements BookDAO {
 				String nazvanie = rs.getString(third);
 				
 				book = new Book(id, name, nazvanie);
+				List.add(book);
 			}
 			cp.removeConnection();
 		} catch (ConnectionPoolException e) {
@@ -50,7 +52,7 @@ public class SQLBookDAO implements BookDAO {
 			throw new DAOException(e);
 		}
 		
-		return book;
+		return List;
 		
 		
 	}

@@ -16,8 +16,10 @@ public class AddNewBook implements Command {
 	private static final String NazvanieKnigi = "nazvanie";
 	private static final String Avtor= "avtor";
 	private static final String BOOK= "book";
+	private static final String Message = "Message";
 	private static final String ErrorMessage = "errorMessage";
-	private static final String infoMessage = "The book is not add!";
+	private static final String infoMessage1 = " нига успешно добавлена в библиотеку.";
+	private static final String infoMessage2 = "The book is not add!";
 	private static final String infoMessageError = "Sorry,technical problem";
 	private static final String viewBookjsp = "WEB-INF/jsp/viewBook.jsp";
 	private static final String mainjsp = "WEB-INF/jsp/main.jsp";
@@ -39,22 +41,26 @@ public class AddNewBook implements Command {
 			book = bookService.addBook(nazvanie, avtor);
 			if (book!=null)	{
 				request.setAttribute(BOOK, book);
-			     page=viewBookjsp;
+				request.setAttribute(Message, infoMessage1);
+			   //  page=viewBookjsp;
+			     response.sendRedirect(viewBookjsp);;
 			}
 			else{
-				request.setAttribute(ErrorMessage, infoMessage);
+				request.setAttribute(ErrorMessage, infoMessage2);
 				page=mainjsp;
+				RequestDispatcher dispatcher=request.getRequestDispatcher(page);
+				dispatcher.forward(request, response);
 				
 			}
 		} catch (ServiceException e) {
 			e.printStackTrace();
 			request.setAttribute(ErrorMessage, infoMessageError);
 			page=errorjsp;
+			RequestDispatcher dispatcher=request.getRequestDispatcher(page);
+			dispatcher.forward(request, response);
 		}
 			
-		RequestDispatcher dispatcher=request.getRequestDispatcher(page);
 		
-			dispatcher.forward(request, response);
 			
 	}
 

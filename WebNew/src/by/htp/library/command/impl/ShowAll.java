@@ -1,6 +1,7 @@
 package by.htp.library.command.impl;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -16,9 +17,9 @@ import by.htp.library.service.factory.ServiceFactory;
 import by.htp.service.exception.ServiceException;
 
 public class ShowAll implements Command {
-	private static final String Book = "book";
+	private static final String LIST = "List";
 	private static final String ErrorMessage = "ErrorMessage";
-	private static final String infoMessage = " Thre are no available book";
+	private static final String infoMessage = " Thre are no available books";
 	private static final String infoMessageError = "Sorry, it is impossible to display the page";
     private static final String ShowAlljsp = "WEB-INF/jsp/ShowAll.jsp";
 	private static final String mainjsp = "WEB-INF/jsp/main.jsp";
@@ -27,17 +28,19 @@ public class ShowAll implements Command {
 		
 		ServiceFactory factory=ServiceFactory.getInstance();
 		BookService bookService=factory.getBookService();
-	Book book = null;
+		//Book book = null;
 		String page = null;
+		
 		try {
-			book = bookService.showBooks();
-			if (book!=null)	{
-				request.setAttribute(Book, book);
-			     page=ShowAlljsp;
+			ArrayList <Book> List  = bookService.showBooks();
+			if (List.size()==0)	{
+				
+			     request.setAttribute(ErrorMessage, infoMessage);
+					page=mainjsp;
 			}
 			else{
-				request.setAttribute(ErrorMessage, infoMessage);
-				page=mainjsp;
+				request.setAttribute(LIST, List);
+			     page=ShowAlljsp;
 				
 			}
 		} catch (ServiceException e) {

@@ -1,7 +1,8 @@
 package by.htp.library.service.impl;
 
+import java.util.ArrayList;
+
 import by.htp.library.dao.BookDAO;
-import by.htp.library.dao.UserDAO;
 import by.htp.library.dao.exception.DAOException;
 import by.htp.library.dao.factory.DAOFactory;
 import by.htp.library.domain.Book;
@@ -12,16 +13,18 @@ public class BookServiceImpl implements BookService {
 	private static final String infoMessage1 = "Incorrect nazvanie";
 	private static final String infoMessage2 = "Incorrect avtor";
 	
-	public Book showBooks () throws ServiceException{
+	public ArrayList<Book> showBooks () throws ServiceException{
 		
 	//œ–Œ¬≈– ¿????
 		DAOFactory daoObjectFactory=DAOFactory.getInstance();
 		BookDAO bookDAO=daoObjectFactory.getBookDAO();
+		ArrayList <Book> List =null;
 		try {
-			return bookDAO.showBook();
+		  List=bookDAO.showBook();
 		} catch (DAOException e) {
 			throw new ServiceException(e);
-		}	
+		}
+		return List;	
 	
 		
 	
