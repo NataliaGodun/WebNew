@@ -11,8 +11,14 @@
 	<h1>
 		Books: <br />
 		<c:forEach items="${requestScope.List}" var="List">
+			<c:out value=" ${List.id}" />
 			<c:out value=" ${List.nazvanie}" />
 			<c:out value=" ${List.avtor}" />
+			<form action="Controller" method="post">
+			<input type="hidden" name="command" value="viewBook"/>
+			<input type="hidden" name="id" value=" ${List.id}" />
+			<input type="submit" value="view book"/>
+			</form>
 			<br />
 		</c:forEach>
 	</h1>

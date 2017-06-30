@@ -9,6 +9,7 @@ import by.htp.library.command.impl.Authorization;
 import by.htp.library.command.impl.Registration;
 import by.htp.library.command.impl.ShowAddNewBookForm;
 import by.htp.library.command.impl.ShowAll;
+import by.htp.library.command.impl.ViewBook;
 
 
 public class CommandProvider {
@@ -20,6 +21,7 @@ public class CommandProvider {
 		commands.put(CommandName.SHOWALL, new ShowAll());
 		commands.put(CommandName.SHOWADDNEWBOOKFORM, new ShowAddNewBookForm());
 		commands.put(CommandName.ADDNEWBOOK, new AddNewBook());
+		commands.put(CommandName.VIEWBOOK, new ViewBook());
 	}
 
 	public Command getCommand(String commandName) {

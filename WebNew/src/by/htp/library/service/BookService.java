@@ -9,4 +9,6 @@ public interface BookService {
 ArrayList<Book> showBooks () throws ServiceException;
 
 Book addBook(String nazvanie, String avtor) throws ServiceException;
+
+Book viewBook(String id)throws ServiceException;
 }

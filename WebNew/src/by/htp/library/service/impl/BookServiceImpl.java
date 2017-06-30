@@ -10,8 +10,9 @@ import by.htp.library.service.BookService;
 import by.htp.service.exception.ServiceException;
 
 public class BookServiceImpl implements BookService {
-	private static final String infoMessage1 = "Incorrect nazvanie";
-	private static final String infoMessage2 = "Incorrect avtor";
+	private static final String MESSAGE1 = "Incorrect nazvanie";
+	private static final String MESSAGE2 = "Incorrect avtor";
+	private static final String MESSAGE3 = "Incorrect avtor";
 	
 	public ArrayList<Book> showBooks () throws ServiceException{
 		
@@ -34,11 +35,12 @@ public class BookServiceImpl implements BookService {
 	@Override
 	public Book addBook(String nazvanie, String avtor) throws ServiceException {
 		if (nazvanie==null||nazvanie.isEmpty()){
-			throw new ServiceException( infoMessage1 );
+			throw new ServiceException( MESSAGE1 );
 		}
 		if (avtor==null||avtor.isEmpty()){
-			throw new ServiceException( infoMessage2 );
+			throw new ServiceException( MESSAGE2 );
 		}
+		
 		
 		DAOFactory daoObjectFactory=DAOFactory.getInstance();
 		BookDAO bookDAO=daoObjectFactory.getBookDAO();
@@ -47,5 +49,22 @@ public class BookServiceImpl implements BookService {
 		} catch (DAOException e) {
 			throw new ServiceException(e);
 		}	
-	}	
+	}
+
+	@Override
+	public Book viewBook(String id) throws ServiceException {
+		if (id==null||id.isEmpty()){
+			throw new ServiceException(MESSAGE3 );	
+		}
+			DAOFactory daoObjectFactory=DAOFactory.getInstance();
+			BookDAO bookDAO=daoObjectFactory.getBookDAO();
+			try {
+				return bookDAO.viewBook(id);
+			} catch (DAOException e) {
+				throw new ServiceException(e);
+			}	
+	}
+		 
+	
 }
+
