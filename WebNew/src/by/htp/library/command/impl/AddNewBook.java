@@ -21,7 +21,7 @@ public class AddNewBook implements Command {
 	private static final String infoMessage1 = " нига успешно добавлена в библиотеку.";
 	private static final String infoMessage2 = "The book is not add!";
 	private static final String infoMessageError = "Sorry,technical problem";
-	private static final String viewBookjsp = "WEB-INF/jsp/viewBook.jsp";
+	private static final String viewBookjsp =" http://localhost:8080/WebNew/Controller?command=viewBook&id=";
 	private static final String mainjsp = "WEB-INF/jsp/main.jsp";
 	private static final String errorjsp = "error.jsp";
 	@Override
@@ -43,7 +43,10 @@ public class AddNewBook implements Command {
 				request.setAttribute(BOOK, book);
 				request.setAttribute(Message, infoMessage1);
 			   //  page=viewBookjsp;
-			     response.sendRedirect(viewBookjsp);;
+				int i=book.getId();
+				String t=viewBookjsp+i;
+				System.out.println(t);
+			     response.sendRedirect(t);
 			}
 			else{
 				request.setAttribute(ErrorMessage, infoMessage2);

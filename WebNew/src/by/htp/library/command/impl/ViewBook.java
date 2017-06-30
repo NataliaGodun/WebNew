@@ -6,12 +6,9 @@ import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import by.htp.library.command.Command;
 import by.htp.library.domain.Book;
-import by.htp.library.domain.User;
 import by.htp.library.service.BookService;
-import by.htp.library.service.UserService;
 import by.htp.library.service.factory.ServiceFactory;
 import by.htp.service.exception.ServiceException;
 

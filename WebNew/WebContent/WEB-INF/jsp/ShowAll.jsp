@@ -14,7 +14,7 @@
 			<c:out value=" ${List.id}" />
 			<c:out value=" ${List.nazvanie}" />
 			<c:out value=" ${List.avtor}" />
-			<form action="Controller" method="post">
+			<form action="Controller" method="get">
 			<input type="hidden" name="command" value="viewBook"/>
 			<input type="hidden" name="id" value=" ${List.id}" />
 			<input type="submit" value="view book"/>
