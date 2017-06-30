@@ -38,6 +38,13 @@ public class ViewBook implements Command {
 			if (book!=null)	{
 				request.setAttribute(BOOK, book);
 			     page=VIEWJSP;
+			     String m=request.getParameter("Message");
+			     if (m==null||m.isEmpty()){
+			}
+			     else{
+			    	 request.setAttribute("Message", "Книга успешно добавлена!");
+
+			     }
 			}
 			else{
 				request.setAttribute(ERRORMESSAGE, INFOMESSAGE1);

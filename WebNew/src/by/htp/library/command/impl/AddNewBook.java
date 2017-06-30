@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import by.htp.library.command.Command;
@@ -41,12 +42,12 @@ public class AddNewBook implements Command {
 			book = bookService.addBook(nazvanie, avtor);
 			if (book!=null)	{
 				request.setAttribute(BOOK, book);
-				request.setAttribute(Message, infoMessage1);
-			   //  page=viewBookjsp;
+				
 				int i=book.getId();
-				String t=viewBookjsp+i;
-				System.out.println(t);
-			     response.sendRedirect(t);
+				String url=viewBookjsp+i;
+				String url2=url+"&Message=new";
+				request.setAttribute(Message, infoMessage1);
+			     response.sendRedirect(url2);
 			}
 			else{
 				request.setAttribute(ErrorMessage, infoMessage2);
