@@ -12,45 +12,50 @@ import by.htp.library.dao.exception.DAOException;
 import by.htp.library.domain.User;
 
 public class SQLUserDAO implements UserDAO {
-	private static final String SelectUser = "SELECT * FROM PEOPLE where login=? and password=?";
-	private static final String addUser = "insert into people (name,login,password,role) values (?,?,?,?)";
-	private static final String Guest ="guest";
-	private static final int first = 1;
-	private static final int second = 2;
-	private static final int third = 3;
-	private static final int fourth = 4;
-	private static final int fifth = 5;
+	private static final String USERSELECT  = "SELECT * FROM PEOPLE WHERE LOGIN=? AND PASSWORD=?";
+	private static final String USERADD = "INSERT INTO PEOPLE (NAME,LOGIN,PASSWORD,ROLE) VALUES (?,?,?,?)";
+	private static final String GUEST ="guest";
+	private static final int FIRST = 1;
+	private static final int SECOND= 2;
+	private static final int THIRD = 3;
+	private static final int FOURTH = 4;
+	private static final int FIFTH = 5;
 
 	@Override
 	public User authorization(String login, String password) throws DAOException {
 		Connection con = null;
 		ResultSet rs = null;
-
 		User user = null;
-
+		
+		ConnectionPoolFactory ObjectCPFactory = ConnectionPoolFactory.getInstance();
+		ConnectionPool cp = ObjectCPFactory.getConnectionPool();
 		try {
-			ConnectionPoolFactory ObjectCPFactory = ConnectionPoolFactory.getInstance();
-			ConnectionPool cp = ObjectCPFactory.getConnectionPool();
-
 			con = cp.takeConnection();
-			PreparedStatement ps = con.prepareStatement(SelectUser);
-			ps.setString(first, login);
-			ps.setString(second, password);
+			PreparedStatement ps = con.prepareStatement(USERSELECT );
+			ps.setString(FIRST, login);
+			ps.setString(SECOND, password);
 			rs = ps.executeQuery();
 			while (rs.next()) {
-				int id = rs.getInt(first);
-				String name = rs.getString(second);
-				String loginBD = rs.getString(third);
-				String passwordBD = rs.getString(fourth);
-				String role = rs.getString(fifth);
+				int id = rs.getInt(FIRST);
+				String name = rs.getString(SECOND);
+				String loginBD = rs.getString(THIRD);
+				String passwordBD = rs.getString(FOURTH);
+				String role = rs.getString(FIFTH);
 				user = new User(id, name, loginBD, passwordBD, role);
 			}
-			cp.removeConnection();
 
 		} catch (ConnectionPoolException e) {
 			throw new DAOException(e);
 		} catch (SQLException e) {
-			throw new DAOException(e);
+			throw new DAOException(e);	
+		}
+		finally{
+			try {
+				cp.removeConnection();
+			} catch (ConnectionPoolException e) {
+				// Log.ERROR
+				e.printStackTrace();
+			}
 		}
 		return user;
 	}
@@ -60,38 +65,43 @@ public class SQLUserDAO implements UserDAO {
 		Connection con = null;
 		ResultSet rs = null;
 		User user = null;
+		
+		ConnectionPoolFactory ObjectCPFactory = ConnectionPoolFactory.getInstance();
+		ConnectionPool cp = ObjectCPFactory.getConnectionPool();
 		try {
-
-			ConnectionPoolFactory ObjectCPFactory = ConnectionPoolFactory.getInstance();
-			ConnectionPool cp = ObjectCPFactory.getConnectionPool();
 			con = cp.takeConnection();
+			PreparedStatement ps = con.prepareStatement(USERADD);
 
-			PreparedStatement ps = con.prepareStatement(addUser);
-
-			ps.setString(first, name);
-			ps.setString(second, login);
-			ps.setString(third, password);
-			ps.setString(fourth,Guest );
+			ps.setString(FIRST, name);
+			ps.setString(SECOND, login);
+			ps.setString(THIRD, password);
+			ps.setString(FOURTH,GUEST );
 			ps.executeUpdate();
 
-			ps = con.prepareStatement(SelectUser);
-			ps.setString(first, login);
-			ps.setString(second, password);
+			ps = con.prepareStatement(USERSELECT);
+			ps.setString(FIRST, login);
+			ps.setString(SECOND, password);
 			rs = ps.executeQuery();
 			while (rs.next()) {
-				int id = rs.getInt(first);
-				String nameBD = rs.getString(second);
-				String loginBD = rs.getString(third);
-				String passwordBD = rs.getString(fourth);
-				String role = rs.getString(fifth);
+				int id = rs.getInt(FIRST);
+				String nameBD = rs.getString(SECOND);
+				String loginBD = rs.getString(THIRD);
+				String passwordBD = rs.getString(FOURTH);
+				String role = rs.getString(FIFTH);
 				user = new User(id, nameBD, loginBD, passwordBD, role);
 			}
-			cp.removeConnection();
-
 		} catch (ConnectionPoolException e) {
 			throw new DAOException(e);
 		} catch (SQLException e) {
 			throw new DAOException(e);
+		}
+		finally{
+			try {
+				cp.removeConnection();
+			} catch (ConnectionPoolException e) {
+				// Log.ERROR
+				e.printStackTrace();
+			}
 		}
 		return user;
 	}

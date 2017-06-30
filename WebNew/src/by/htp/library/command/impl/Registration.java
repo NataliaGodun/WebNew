@@ -15,47 +15,51 @@ import by.htp.library.service.factory.ServiceFactory;
 import by.htp.service.exception.ServiceException;
 
 public class Registration implements Command {
-	private static final String Name = "name";
-	private static final String Login = "login";
-	private static final String Password = "password";
-	private static final String User = "user";
-	private static final String ErrorMessage = "errorMessage";
-	private static final String infoMessage = "The user with such login already exists";
-	private static final String mainjsp = "WEB-INF/jsp/main.jsp";
-	private static final String indexjsp = "index.jsp";
+	private static final String LOGIN= "login";
+	private static final String PASSWORD = "password";
+	private static final String USER = "user";
+	private static final String ERRORMESSAGE= "errorMessage";
+	private static final String MESSAGE1 = "The user with such login already exists";
+	private static final String MESSAGE2 = "Sorry,technical problem";
+	private static final String MAINJSP = "WEB-INF/jsp/main.jsp";
+	private static final String INDEXJSP = "index.jsp";
+	private static final String NAME = "name";
+	
+	
+	
+	
+	
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 				String name;
 				String login;
 				String password;
 				
-				name=request.getParameter(Name);
-				login=request.getParameter(Login);
-				password=request.getParameter(Password);
+				name=request.getParameter(NAME);
+				login=request.getParameter(LOGIN);
+				password=request.getParameter(PASSWORD);
 				
 				ServiceFactory factory=ServiceFactory.getInstance();
 				UserService userService=factory.getUserService();
 				
+				String page;
 				User user = null;
 				try {
 					user = userService.registration(name, login, password);
+					if (user!=null){
+						request.setAttribute(USER, user);
+						page=MAINJSP;
+					}else{
+						request.setAttribute(ERRORMESSAGE, MESSAGE1);
+						page=INDEXJSP;
+						
+					}
 				} catch (ServiceException e) {
 					e.printStackTrace();
+					request.setAttribute( ERRORMESSAGE, MESSAGE2);
+					page=INDEXJSP;
 				}
-				
-			
-				
-				
-				String page;
-				if (user!=null){
-					request.setAttribute(User, user);
-					page= mainjsp;
-				}else{
-					request.setAttribute(ErrorMessage, infoMessage);
-					page=indexjsp;
-					
-				}
-				
+						
 				RequestDispatcher dispatcher=request.getRequestDispatcher(page);
 				
 					dispatcher.forward(request, response);

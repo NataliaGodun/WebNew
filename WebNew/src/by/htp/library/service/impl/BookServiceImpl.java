@@ -12,11 +12,10 @@ import by.htp.service.exception.ServiceException;
 public class BookServiceImpl implements BookService {
 	private static final String MESSAGE1 = "Incorrect nazvanie";
 	private static final String MESSAGE2 = "Incorrect avtor";
-	private static final String MESSAGE3 = "Incorrect avtor";
+	private static final String MESSAGE3 = "This book is not available";
 	
 	public ArrayList<Book> showBooks () throws ServiceException{
-		
-	//œ–Œ¬≈– ¿????
+	
 		DAOFactory daoObjectFactory=DAOFactory.getInstance();
 		BookDAO bookDAO=daoObjectFactory.getBookDAO();
 		ArrayList <Book> List =null;
@@ -26,9 +25,6 @@ public class BookServiceImpl implements BookService {
 			throw new ServiceException(e);
 		}
 		return List;	
-	
-		
-	
 		
 	}
 
@@ -40,7 +36,6 @@ public class BookServiceImpl implements BookService {
 		if (avtor==null||avtor.isEmpty()){
 			throw new ServiceException( MESSAGE2 );
 		}
-		
 		
 		DAOFactory daoObjectFactory=DAOFactory.getInstance();
 		BookDAO bookDAO=daoObjectFactory.getBookDAO();

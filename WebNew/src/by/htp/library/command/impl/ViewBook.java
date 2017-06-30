@@ -16,10 +16,12 @@ public class ViewBook implements Command {
 	private static final String ID = "id";
 	private static final String BOOK = "book";
 	private static final String VIEWJSP = "WEB-INF/jsp/viewBook.jsp";
-	 private static final String SHOWALLJSP = "WEB-INF/jsp/ShowAll.jsp";
-	 private static final String ERRORMESSAGE = "ErrorMessage";
-		private static final String INFOMESSAGE1 = " Thre are no available books";
-		private static final String INFOMESSAGE2 = "Sorry, it is impossible to display the page";
+	private static final String SHOWALLJSP = "WEB-INF/jsp/ShowAll.jsp";
+	private static final String ERRORMESSAGE = "ErrorMessage";
+	private static final String MESSAGE = "Message";
+	private static final String MESSAGE1 = " Thre are no available books";
+	private static final String MESSAGE2 = "Sorry, it is impossible to display the page";
+	private static final String MESSAGE3 = "Книга успешно добавлена!";
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String id;
@@ -38,22 +40,22 @@ public class ViewBook implements Command {
 			if (book!=null)	{
 				request.setAttribute(BOOK, book);
 			     page=VIEWJSP;
-			     String m=request.getParameter("Message");
+			     String m=request.getParameter(MESSAGE);
 			     if (m==null||m.isEmpty()){
 			}
 			     else{
-			    	 request.setAttribute("Message", "Книга успешно добавлена!");
+			    	 request.setAttribute(MESSAGE, MESSAGE3);
 
 			     }
 			}
 			else{
-				request.setAttribute(ERRORMESSAGE, INFOMESSAGE1);
+				request.setAttribute(ERRORMESSAGE, MESSAGE1);
 				page=SHOWALLJSP;
 				
 			}
 		} catch (ServiceException e) {
 			e.printStackTrace();
-			request.setAttribute(ERRORMESSAGE, INFOMESSAGE2);
+			request.setAttribute(ERRORMESSAGE, MESSAGE2);
 			page=SHOWALLJSP;
 		}
 			

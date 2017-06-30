@@ -13,8 +13,8 @@ import by.htp.library.command.Command;
 
 public class Controller extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-    private static final CommandProvider provider=new CommandProvider();  
-    private static final String Command="command";  
+    private static final CommandProvider PROVIDER=new CommandProvider();  
+    private static final String COMMAND="command";  
     public Controller() {
         super();
     }
@@ -35,16 +35,16 @@ public class Controller extends HttpServlet {
 	}
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		String commandName=request.getParameter(Command);
+		String commandName=request.getParameter(COMMAND);
 		
-		Command command=provider.getCommand(commandName);
+		Command command=PROVIDER.getCommand(commandName);
 		command.execute(request, response);
 	}
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		String commandName=request.getParameter(Command);
+		String commandName=request.getParameter(COMMAND);
 		
-		Command command=provider.getCommand(commandName);
+		Command command=PROVIDER.getCommand(commandName);
 		command.execute(request, response);
 		
 	}

@@ -12,21 +12,21 @@ import by.htp.library.service.factory.ServiceFactory;
 import by.htp.service.exception.ServiceException;
 
 public class Authorization implements Command {
-	private static final String Login = "login";
-	private static final String Password = "password";
-	private static final String User = "user";
-	private static final String ErrorMessage = "errorMessage";
-	private static final String infoMessage = "wrong login or password";
-	private static final String infoMessageError = "Sorry,technical problem";
-	private static final String mainjsp = "WEB-INF/jsp/main.jsp";
-	private static final String indexjsp = "index.jsp";
+	private static final String LOGIN= "login";
+	private static final String PASSWORD = "password";
+	private static final String USER = "user";
+	private static final String ERRORMESSAGE= "errorMessage";
+	private static final String MESSAGE1 = "wrong login or password";
+	private static final String MESSAGE2 = "Sorry,technical problem";
+	private static final String MAINJSP = "WEB-INF/jsp/main.jsp";
+	private static final String INDEXJSP = "index.jsp";
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String login;
 		String password;
 		
-		login=request.getParameter(Login);
-		password=request.getParameter(Password);
+		login=request.getParameter(LOGIN);
+		password=request.getParameter(PASSWORD);
 		
 		ServiceFactory factory=ServiceFactory.getInstance();
 		UserService userService=factory.getUserService();
@@ -36,18 +36,18 @@ public class Authorization implements Command {
 		try {
 			user = userService.authorization(login, password);
 			if (user!=null)	{
-				request.setAttribute(User, user);
-			     page=mainjsp;
+				request.setAttribute(USER , user);
+			     page=MAINJSP ;
 			}
 			else{
-				request.setAttribute(ErrorMessage, infoMessage);
-				page=indexjsp;
+				request.setAttribute( ERRORMESSAGE, MESSAGE1);
+				page=INDEXJSP;
 				
 			}
 		} catch (ServiceException e) {
 			e.printStackTrace();
-			request.setAttribute(ErrorMessage, infoMessageError);
-			page=indexjsp;
+			request.setAttribute( ERRORMESSAGE, MESSAGE2);
+			page=INDEXJSP;
 		}
 			
 		RequestDispatcher dispatcher=request.getRequestDispatcher(page);
