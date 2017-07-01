@@ -40,12 +40,11 @@ public class ViewBook implements Command {
 			if (book!=null)	{
 				request.setAttribute(BOOK, book);
 			     page=VIEWJSP;
-			     String m=request.getParameter(MESSAGE);
-			     if (m==null||m.isEmpty()){
-			}
-			     else{
+			     String mes=request.getParameter(MESSAGE);
+			     if (mes==null||mes.isEmpty()){
+			    	  }
+			     else {
 			    	 request.setAttribute(MESSAGE, MESSAGE3);
-
 			     }
 			}
 			else{
