@@ -19,6 +19,7 @@ public class ShowAll implements Command {
     private static final String TAKE_ALL_JSP= "WEB-INF/jsp/takeAllBook.jsp";
 	private static final String ERROR_MESSAGE= "errorMessage";
 	private static final String MAIN_JSP = "WEB-INF/jsp/main.jsp";
+	private static final String MESSAGE = "Message";
 	
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -36,6 +37,10 @@ public class ShowAll implements Command {
 			   page=MAIN_JSP;
 			}
 			else{
+				 String mes=request.getParameter(MESSAGE);
+			     if (!(mes==null||mes.isEmpty())){
+			    	 request.setAttribute(MESSAGE, mes);
+			     }
 				request.setAttribute(LIST, List);
 			    page=TAKE_ALL_JSP;
 				

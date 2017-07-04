@@ -9,7 +9,13 @@
 </head>
 <body>
 	<h1>
-		Books: <br />
+	<c:if test="${not empty  requestScope.Message }">
+			<c:out value="${  requestScope.Message }" />
+			<br />
+		</c:if>
+		
+		Available books: <br />
+		<br />
 		<c:forEach items="${requestScope.List}" var="List">
 			<c:out value=" ${List.id}" />
 			<c:out value=" ${List.nazvanie}" />

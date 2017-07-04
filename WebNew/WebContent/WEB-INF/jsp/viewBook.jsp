@@ -18,6 +18,9 @@
 		<c:if test="${not empty  requestScope.Message }">
 			<c:out value="${  requestScope.Message }" />
 		</c:if>
+		<c:if test="${not empty  requestScope.errorMessage}">
+			<c:out value="${  requestScope.errorMessage }" />
+		</c:if>
 	</h2>
 </body>
 </html>

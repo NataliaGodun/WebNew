@@ -16,7 +16,7 @@ public class ViewBook implements Command {
 	private static final String ID = "id";
 	private static final String BOOK = "book";
 	private static final String VIEW_JSP = "WEB-INF/jsp/viewBook.jsp";
-	private static final String SHOW_ALL_JSP = "WEB-INF/jsp/ShowAll.jsp";
+	private static final String MAIN_JSP = "WEB-INF/jsp/main.jsp";
 	private static final String ERROR_MESSAGE = "ErrorMessage";
 	private static final String MESSAGE = "Message";
 	private static final String MESSAGE_NO_BOOKS= " There are no available books";
@@ -47,13 +47,13 @@ public class ViewBook implements Command {
 			}
 			else{
 				request.setAttribute(ERROR_MESSAGE, MESSAGE_NO_BOOKS);
-				page=SHOW_ALL_JSP;
+				page=MAIN_JSP;
 				
 			}
 		} catch (ServiceException e) {
 			e.printStackTrace();
 			request.setAttribute(ERROR_MESSAGE, MESSAGE_ABOUT_PROBLEM);
-			page=SHOW_ALL_JSP;
+			page=MAIN_JSP;
 		}
 			
 		RequestDispatcher dispatcher=request.getRequestDispatcher(page);

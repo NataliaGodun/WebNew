@@ -59,6 +59,23 @@ public class BookServiceImpl implements BookService {
 				throw new ServiceException(e);
 			}	
 	}
+
+	@Override
+	public Book deleteBook(String nazvanie, String avtor) throws ServiceException {
+		if (nazvanie==null||nazvanie.isEmpty()){
+			throw new ServiceException( MESSAGE_WRONG_NAME  );
+		}
+		if (avtor==null||avtor.isEmpty()){
+			throw new ServiceException( MESSAGE_WRONG_WRITER );
+		}
+		DAOFactory daoObjectFactory=DAOFactory.getInstance();
+		BookDAO bookDAO=daoObjectFactory.getBookDAO();
+		try {
+			return bookDAO.deleteBook(nazvanie,avtor);
+		} catch (DAOException e) {
+			throw new ServiceException(e);
+		}	
+	}
 		 
 	
 }

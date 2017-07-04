@@ -11,4 +11,6 @@ ArrayList<Book> showBook () throws DAOException;
 Book addBook(String nazvanie, String avtor) throws DAOException;
 
 Book viewBook(String id) throws DAOException;
+
+Book deleteBook(String nazvanie, String avtor)throws DAOException;
 }

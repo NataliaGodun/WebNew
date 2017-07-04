@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import by.htp.connection.pool.ConnectionPool;
 import by.htp.connection.pool.ConnectionPoolException;
@@ -15,10 +16,12 @@ import by.htp.library.domain.Book;
 
 
 public class SQLBookDAO implements BookDAO {
-	private static final String SELECT_ALL_BOOK = "SELECT * FROM BOOK ";
-	private static final String ADD_BOOK = "INSERT INTO BOOK (NAME,NAZVANIE) VALUES(?,?)";
-	private static final String BOOK_SELECT = "SELECT * FROM BOOK WHERE NAME=? AND NAZVANIE=?";
-	private static final String SELECT_BOOK_ID = "SELECT * FROM BOOK WHERE ID=? ";
+	private static final String SELECT_ALL_BOOK = "SELECT * FROM BOOK WHERE STATUS='EXIST'";
+	private static final String ADD_BOOK = "INSERT INTO BOOK (NAME,NAZVANIE,STATUS) VALUES(?,?,'EXIST')";
+	private static final String BOOK_SELECT = "SELECT * FROM BOOK WHERE NAME=? AND NAZVANIE=? AND STATUS='EXIST'";
+	private static final String SELECT_BOOK_ID = "SELECT * FROM BOOK WHERE ID=? AND STATUS='EXIST' ";
+	private static final String DELETE_BOOK_NAME_WRITER = "UPDATE BOOK SET STATUS='DELETE' WHERE NAME=? AND NAZVANIE=?";
+	private static final String STATUS="exist";
 	private static final int FIRST= 1;
 	private static final int SECOND = 2;
 	private static final int THIRD = 3;
@@ -71,13 +74,103 @@ public class SQLBookDAO implements BookDAO {
 		Connection con = null;
 		ResultSet rs = null;
 		Book book= null;
-		try {
+		ConnectionPoolFactory ObjectCPFactory = ConnectionPoolFactory.getInstance();
+		ConnectionPool cp = ObjectCPFactory.getConnectionPool();
 
-			ConnectionPoolFactory ObjectCPFactory = ConnectionPoolFactory.getInstance();
-			ConnectionPool cp = ObjectCPFactory.getConnectionPool();
+		try {
 			con = cp.takeConnection();
 
 			PreparedStatement ps = con.prepareStatement(ADD_BOOK);
+
+			ps.setString(FIRST, avtor);
+			ps.setString(SECOND, nazvanie);
+			ps.executeUpdate();
+
+			ps = con.prepareStatement(BOOK_SELECT);
+			ps.setString(FIRST, avtor);
+			ps.setString(SECOND,nazvanie );
+			rs = ps.executeQuery();
+			while (rs.next()) {
+				int id = rs.getInt(FIRST);
+				String NazvanieKnigi = rs.getString(SECOND);
+				String AvtorKnigi = rs.getString(THIRD);
+				
+				book= new Book(id, NazvanieKnigi , AvtorKnigi);
+			}
+			
+
+		} catch (ConnectionPoolException e) {
+			throw new DAOException(e);
+		} catch (SQLException e) {
+			throw new DAOException(e);
+		}
+		finally{
+			try {
+				cp.removeConnection();
+			} catch (ConnectionPoolException e) {
+				// Log.ERROR
+				e.printStackTrace();
+			}
+		}
+		return book;
+	}
+
+	@Override
+	public Book viewBook(String id) throws DAOException {
+		
+		Connection con = null;
+		ResultSet rs = null;
+		Book book= null;
+
+		ConnectionPoolFactory ObjectCPFactory = ConnectionPoolFactory.getInstance();
+		ConnectionPool cp = ObjectCPFactory.getConnectionPool();
+		try {
+
+			con = cp.takeConnection();
+
+			PreparedStatement ps = con.prepareStatement(SELECT_BOOK_ID);
+
+			ps.setString(FIRST, id);
+			
+			
+			rs = ps.executeQuery();
+			while (rs.next()) {
+				int idBD = rs.getInt(FIRST);
+				String NazvanieKnigi = rs.getString(SECOND);
+				String AvtorKnigi = rs.getString(THIRD);
+				
+				book= new Book(idBD, NazvanieKnigi , AvtorKnigi);
+			}
+			
+
+		} catch (ConnectionPoolException e) {
+			throw new DAOException(e);
+		} catch (SQLException e) {
+			throw new DAOException(e);
+		}
+		finally{
+			try {
+				cp.removeConnection();
+			} catch (ConnectionPoolException e) {
+				// Log.ERROR
+				e.printStackTrace();
+			}
+		}
+		return book;
+	}
+
+	@Override
+	public Book deleteBook(String nazvanie, String avtor) throws DAOException {
+		Connection con = null;
+		ResultSet rs = null;
+		Book book= null;
+		
+		ConnectionPoolFactory ObjectCPFactory = ConnectionPoolFactory.getInstance();
+		ConnectionPool cp = ObjectCPFactory.getConnectionPool();
+		try {
+			con = cp.takeConnection();
+			
+			PreparedStatement ps = con.prepareStatement(DELETE_BOOK_NAME_WRITER );
 
 			ps.setString(FIRST, avtor);
 			ps.setString(SECOND, nazvanie);
@@ -95,49 +188,19 @@ public class SQLBookDAO implements BookDAO {
 				
 				book= new Book(id, NazvanieKnigi , AvtorKnigi);
 			}
-			cp.removeConnection();
 
 		} catch (ConnectionPoolException e) {
 			throw new DAOException(e);
 		} catch (SQLException e) {
 			throw new DAOException(e);
 		}
-		return book;
-	}
-
-	@Override
-	public Book viewBook(String id) throws DAOException {
-		
-		Connection con = null;
-		ResultSet rs = null;
-		Book book= null;
-		try {
-
-			ConnectionPoolFactory ObjectCPFactory = ConnectionPoolFactory.getInstance();
-			ConnectionPool cp = ObjectCPFactory.getConnectionPool();
-			con = cp.takeConnection();
-
-			PreparedStatement ps = con.prepareStatement(SELECT_BOOK_ID);
-
-			ps.setString(FIRST, id);
-			
-			
-			rs = ps.executeQuery();
-			while (rs.next()) {
-				int idBD = rs.getInt(FIRST);
-				String NazvanieKnigi = rs.getString(SECOND);
-				String AvtorKnigi = rs.getString(THIRD);
-				
-				book= new Book(idBD, NazvanieKnigi , AvtorKnigi);
+		finally{
+			try {
+				cp.removeConnection();
+			} catch (ConnectionPoolException e) {
+				// Log.ERROR
+				e.printStackTrace();
 			}
-			cp.removeConnection();
-
-		} catch (ConnectionPoolException e) {
-			throw new DAOException(e);
-		} catch (SQLException e) {
-			throw new DAOException(e);
-		}
-		return book;
+		}return book;
 	}
-
 }
