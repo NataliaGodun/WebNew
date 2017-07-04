@@ -6,6 +6,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 import by.htp.connection.pool.ConnectionPool;
 import by.htp.connection.pool.ConnectionPoolException;
 import by.htp.connection.pool.ConnectionPoolFactory;
@@ -42,6 +44,7 @@ public class Controller extends HttpServlet {
 		
 		Command command=PROVIDER.getCommand(commandName);
 		command.execute(request, response);
+		
 	}
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		

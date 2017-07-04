@@ -17,7 +17,7 @@
 		Available books: <br />
 		<br />
 		<c:forEach items="${requestScope.List}" var="List">
-			<c:out value=" ${List.id}" />
+			
 			<c:out value=" ${List.nazvanie}" />
 			<c:out value=" ${List.avtor}" />
 			<form action="Controller" method="get">

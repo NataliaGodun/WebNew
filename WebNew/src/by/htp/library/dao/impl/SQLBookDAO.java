@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import by.htp.connection.pool.ConnectionPool;
 import by.htp.connection.pool.ConnectionPoolException;
@@ -21,7 +20,6 @@ public class SQLBookDAO implements BookDAO {
 	private static final String BOOK_SELECT = "SELECT * FROM BOOK WHERE NAME=? AND NAZVANIE=? AND STATUS='EXIST'";
 	private static final String SELECT_BOOK_ID = "SELECT * FROM BOOK WHERE ID=? AND STATUS='EXIST' ";
 	private static final String DELETE_BOOK_NAME_WRITER = "UPDATE BOOK SET STATUS='DELETE' WHERE NAME=? AND NAZVANIE=?";
-	private static final String STATUS="exist";
 	private static final int FIRST= 1;
 	private static final int SECOND = 2;
 	private static final int THIRD = 3;
