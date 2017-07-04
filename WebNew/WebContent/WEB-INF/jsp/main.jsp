@@ -25,5 +25,10 @@
 		<input type="hidden" name="command" value="showAddNewBookForm" /> <br />
 		<input type="submit" value="Add book" />
 	</form>
+	<br />
+		<form action="Controller" method="get">
+		<input type="hidden" name="command" value="showDeleteBookForm" /> <br />
+		<input type="submit" value="Delete book" />
+	</form>
 </body>
 </html>

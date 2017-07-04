@@ -15,10 +15,10 @@ import by.htp.library.domain.Book;
 
 
 public class SQLBookDAO implements BookDAO {
-	private static final String ALLBOOKSSELECT = "SELECT * FROM BOOK ";
-	private static final String ADDBOOK = "INSERT INTO BOOK (NAME,NAZVANIE) VALUES(?,?)";
-	private static final String BOOKSELECT = "SELECT * FROM BOOK WHERE NAME=? AND NAZVANIE=?";
-	private static final String IDSELECT = "SELECT * FROM BOOK WHERE ID=? ";
+	private static final String SELECT_ALL_BOOK = "SELECT * FROM BOOK ";
+	private static final String ADD_BOOK = "INSERT INTO BOOK (NAME,NAZVANIE) VALUES(?,?)";
+	private static final String BOOK_SELECT = "SELECT * FROM BOOK WHERE NAME=? AND NAZVANIE=?";
+	private static final String SELECT_BOOK_ID = "SELECT * FROM BOOK WHERE ID=? ";
 	private static final int FIRST= 1;
 	private static final int SECOND = 2;
 	private static final int THIRD = 3;
@@ -37,7 +37,7 @@ public class SQLBookDAO implements BookDAO {
 		try {
 			
 			con = cp.takeConnection();
-			PreparedStatement ps = con.prepareStatement(ALLBOOKSSELECT );
+			PreparedStatement ps = con.prepareStatement(SELECT_ALL_BOOK);
 			rs = ps.executeQuery();
 			while (rs.next()) {
 				int id = rs.getInt(FIRST);
@@ -77,14 +77,14 @@ public class SQLBookDAO implements BookDAO {
 			ConnectionPool cp = ObjectCPFactory.getConnectionPool();
 			con = cp.takeConnection();
 
-			PreparedStatement ps = con.prepareStatement(ADDBOOK);
+			PreparedStatement ps = con.prepareStatement(ADD_BOOK);
 
 			ps.setString(FIRST, avtor);
 			ps.setString(SECOND, nazvanie);
 			
 			ps.executeUpdate();
 
-			ps = con.prepareStatement(BOOKSELECT);
+			ps = con.prepareStatement(BOOK_SELECT);
 			ps.setString(FIRST, avtor);
 			ps.setString(SECOND,nazvanie );
 			rs = ps.executeQuery();
@@ -117,7 +117,7 @@ public class SQLBookDAO implements BookDAO {
 			ConnectionPool cp = ObjectCPFactory.getConnectionPool();
 			con = cp.takeConnection();
 
-			PreparedStatement ps = con.prepareStatement(IDSELECT);
+			PreparedStatement ps = con.prepareStatement(SELECT_BOOK_ID);
 
 			ps.setString(FIRST, id);
 			

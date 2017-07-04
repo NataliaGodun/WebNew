@@ -12,8 +12,8 @@ import by.htp.library.dao.exception.DAOException;
 import by.htp.library.domain.User;
 
 public class SQLUserDAO implements UserDAO {
-	private static final String USERSELECT  = "SELECT * FROM PEOPLE WHERE LOGIN=? AND PASSWORD=?";
-	private static final String USERADD = "INSERT INTO PEOPLE (NAME,LOGIN,PASSWORD,ROLE) VALUES (?,?,?,?)";
+	private static final String USER_SELECT  = "SELECT * FROM PEOPLE WHERE LOGIN=? AND PASSWORD=?";
+	private static final String USER_ADD = "INSERT INTO PEOPLE (NAME,LOGIN,PASSWORD,ROLE) VALUES (?,?,?,?)";
 	private static final String GUEST ="guest";
 	private static final int FIRST = 1;
 	private static final int SECOND= 2;
@@ -31,7 +31,7 @@ public class SQLUserDAO implements UserDAO {
 		ConnectionPool cp = ObjectCPFactory.getConnectionPool();
 		try {
 			con = cp.takeConnection();
-			PreparedStatement ps = con.prepareStatement(USERSELECT );
+			PreparedStatement ps = con.prepareStatement(USER_SELECT );
 			ps.setString(FIRST, login);
 			ps.setString(SECOND, password);
 			rs = ps.executeQuery();
@@ -70,7 +70,7 @@ public class SQLUserDAO implements UserDAO {
 		ConnectionPool cp = ObjectCPFactory.getConnectionPool();
 		try {
 			con = cp.takeConnection();
-			PreparedStatement ps = con.prepareStatement(USERADD);
+			PreparedStatement ps = con.prepareStatement(USER_ADD);
 
 			ps.setString(FIRST, name);
 			ps.setString(SECOND, login);
@@ -78,7 +78,7 @@ public class SQLUserDAO implements UserDAO {
 			ps.setString(FOURTH,GUEST );
 			ps.executeUpdate();
 
-			ps = con.prepareStatement(USERSELECT);
+			ps = con.prepareStatement(USER_SELECT);
 			ps.setString(FIRST, login);
 			ps.setString(SECOND, password);
 			rs = ps.executeQuery();

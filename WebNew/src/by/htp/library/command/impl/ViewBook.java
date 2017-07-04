@@ -15,13 +15,13 @@ import by.htp.service.exception.ServiceException;
 public class ViewBook implements Command {
 	private static final String ID = "id";
 	private static final String BOOK = "book";
-	private static final String VIEWJSP = "WEB-INF/jsp/viewBook.jsp";
-	private static final String SHOWALLJSP = "WEB-INF/jsp/ShowAll.jsp";
-	private static final String ERRORMESSAGE = "ErrorMessage";
+	private static final String VIEW_JSP = "WEB-INF/jsp/viewBook.jsp";
+	private static final String SHOW_ALL_JSP = "WEB-INF/jsp/ShowAll.jsp";
+	private static final String ERROR_MESSAGE = "ErrorMessage";
 	private static final String MESSAGE = "Message";
-	private static final String MESSAGE1 = " Thre are no available books";
-	private static final String MESSAGE2 = "Sorry, it is impossible to display the page";
-	private static final String MESSAGE3 = "Книга успешно добавлена!";
+	private static final String MESSAGE_NO_BOOKS= " There are no available books";
+	private static final String MESSAGE_ABOUT_PROBLEM= "Sorry,technical problem";
+	
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String id;
@@ -39,23 +39,21 @@ public class ViewBook implements Command {
 			book = bookService.viewBook(id);
 			if (book!=null)	{
 				request.setAttribute(BOOK, book);
-			     page=VIEWJSP;
+			     page=VIEW_JSP;
 			     String mes=request.getParameter(MESSAGE);
-			     if (mes==null||mes.isEmpty()){
-			    	  }
-			     else {
-			    	 request.setAttribute(MESSAGE, MESSAGE3);
-			     }
+			     if (!(mes==null||mes.isEmpty())){
+			    	 request.setAttribute(MESSAGE, mes);
+			     }else{}
 			}
 			else{
-				request.setAttribute(ERRORMESSAGE, MESSAGE1);
-				page=SHOWALLJSP;
+				request.setAttribute(ERROR_MESSAGE, MESSAGE_NO_BOOKS);
+				page=SHOW_ALL_JSP;
 				
 			}
 		} catch (ServiceException e) {
 			e.printStackTrace();
-			request.setAttribute(ERRORMESSAGE, MESSAGE2);
-			page=SHOWALLJSP;
+			request.setAttribute(ERROR_MESSAGE, MESSAGE_ABOUT_PROBLEM);
+			page=SHOW_ALL_JSP;
 		}
 			
 		RequestDispatcher dispatcher=request.getRequestDispatcher(page);

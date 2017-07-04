@@ -13,25 +13,23 @@ import by.htp.library.service.factory.ServiceFactory;
 import by.htp.service.exception.ServiceException;
 
 public class AddNewBook implements Command {
-	private static final String NAMEBOOK = "nazvanie";
-	private static final String NAMEWRITER= "avtor";
+	private static final String NAME_BOOK = "nazvanie";
+	private static final String NAME_WRITER= "avtor";
 	private static final String BOOK= "book";
-	private static final String MESSAGE = "Message";
-	private static final String ERRORMESSAGE = "errorMessage";
-	private static final String MESSAGE1 = " нига успешно добавлена в библиотеку.";
-	private static final String MESSAGE2 = "The book is not add!";
-	private static final String MESSAGE3 = "Sorry,technical problem";
-	private static final String WITHMESSAGE = "&Message=new";
-	private static final String URLVIEWBOOK=" http://localhost:8080/WebNew/Controller?command=viewBook&id=";
-	private static final String MAINJSP = "WEB-INF/jsp/main.jsp";
-	private static final String ERRORJSP = "error.jsp";
+	private static final String ERROR_MESSAGE = "errorMessage";
+	private static final String MESSAGE_FAILING_ADDITION  = "The book is not add!";
+	private static final String MESSAGE_ABOUT_PROBLEM = "Sorry,technical problem";
+	private static final String MESSAGE_SUCCESSFUL_ADDITION = "&Message=Book successful addition in library!";
+	private static final String URL_VIEW_BOOK=" http://localhost:8080/WebNew/Controller?command=viewBook&id=";
+	private static final String MAIN_JSP = "WEB-INF/jsp/main.jsp";
+	private static final String ERROR_JSP = "error.jsp";
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String nazvanie;
 		String avtor;
 		
-		nazvanie=request.getParameter(NAMEBOOK);
-		avtor=request.getParameter(NAMEWRITER);
+		nazvanie=request.getParameter(NAME_BOOK);
+		avtor=request.getParameter(NAME_WRITER);
 		
 		ServiceFactory factory=ServiceFactory.getInstance();
 		BookService bookService=factory.getBookService();
@@ -44,21 +42,20 @@ public class AddNewBook implements Command {
 				request.setAttribute(BOOK, book);
 				
 				int i=book.getId();
-				String url=URLVIEWBOOK+i;
-				String url2=url+WITHMESSAGE;
-				request.setAttribute(MESSAGE,  MESSAGE1);
+				String url=URL_VIEW_BOOK+i;
+				String url2=url+MESSAGE_SUCCESSFUL_ADDITION;
 			     response.sendRedirect(url2);
 			}
 			else{
-				request.setAttribute(ERRORMESSAGE, MESSAGE2);
-				page=MAINJSP;
+				request.setAttribute(ERROR_MESSAGE, MESSAGE_FAILING_ADDITION);
+				page=MAIN_JSP;
 				RequestDispatcher dispatcher=request.getRequestDispatcher(page);
 				dispatcher.forward(request, response);
 			}
 		} catch (ServiceException e) {
 			e.printStackTrace();
-			request.setAttribute(ERRORMESSAGE,  MESSAGE3);
-			page=ERRORJSP;
+			request.setAttribute(ERROR_MESSAGE, MESSAGE_ABOUT_PROBLEM);
+			page=ERROR_JSP;
 			RequestDispatcher dispatcher=request.getRequestDispatcher(page);
 			dispatcher.forward(request, response);
 		}

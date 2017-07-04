@@ -10,9 +10,9 @@ import by.htp.library.service.BookService;
 import by.htp.service.exception.ServiceException;
 
 public class BookServiceImpl implements BookService {
-	private static final String MESSAGE1 = "Incorrect nazvanie";
-	private static final String MESSAGE2 = "Incorrect avtor";
-	private static final String MESSAGE3 = "This book is not available";
+	private static final String MESSAGE_WRONG_NAME = "Incorrect name of the book";
+	private static final String MESSAGE_WRONG_WRITER= "Incorrect writer";
+	private static final String MESSAGE_WRONG_ID= "This book is not available";
 	
 	public ArrayList<Book> showBooks () throws ServiceException{
 	
@@ -31,10 +31,10 @@ public class BookServiceImpl implements BookService {
 	@Override
 	public Book addBook(String nazvanie, String avtor) throws ServiceException {
 		if (nazvanie==null||nazvanie.isEmpty()){
-			throw new ServiceException( MESSAGE1 );
+			throw new ServiceException( MESSAGE_WRONG_NAME  );
 		}
 		if (avtor==null||avtor.isEmpty()){
-			throw new ServiceException( MESSAGE2 );
+			throw new ServiceException( MESSAGE_WRONG_WRITER );
 		}
 		
 		DAOFactory daoObjectFactory=DAOFactory.getInstance();
@@ -49,7 +49,7 @@ public class BookServiceImpl implements BookService {
 	@Override
 	public Book viewBook(String id) throws ServiceException {
 		if (id==null||id.isEmpty()){
-			throw new ServiceException(MESSAGE3 );	
+			throw new ServiceException(MESSAGE_WRONG_ID );	
 		}
 			DAOFactory daoObjectFactory=DAOFactory.getInstance();
 			BookDAO bookDAO=daoObjectFactory.getBookDAO();

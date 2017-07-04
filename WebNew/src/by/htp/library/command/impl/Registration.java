@@ -18,11 +18,11 @@ public class Registration implements Command {
 	private static final String LOGIN= "login";
 	private static final String PASSWORD = "password";
 	private static final String USER = "user";
-	private static final String ERRORMESSAGE= "errorMessage";
-	private static final String MESSAGE1 = "The user with such login already exists";
-	private static final String MESSAGE2 = "Sorry,technical problem";
-	private static final String MAINJSP = "WEB-INF/jsp/main.jsp";
-	private static final String INDEXJSP = "index.jsp";
+	private static final String ERROR_MESSAGE= "errorMessage";
+	private static final String MESSAGE_LOGIN_EXISTS = "The user with such login already exists";
+	private static final String MESSAGE_ABOUT_PROBLEM = "Sorry,technical problem";
+	private static final String MAIN_JSP = "WEB-INF/jsp/main.jsp";
+	private static final String INDEX_JSP = "index.jsp";
 	private static final String NAME = "name";
 	
 	
@@ -48,16 +48,16 @@ public class Registration implements Command {
 					user = userService.registration(name, login, password);
 					if (user!=null){
 						request.setAttribute(USER, user);
-						page=MAINJSP;
+						page=MAIN_JSP;
 					}else{
-						request.setAttribute(ERRORMESSAGE, MESSAGE1);
-						page=INDEXJSP;
+						request.setAttribute(ERROR_MESSAGE, MESSAGE_LOGIN_EXISTS);
+						page=INDEX_JSP;
 						
 					}
 				} catch (ServiceException e) {
 					e.printStackTrace();
-					request.setAttribute( ERRORMESSAGE, MESSAGE2);
-					page=INDEXJSP;
+					request.setAttribute( ERROR_MESSAGE, MESSAGE_ABOUT_PROBLEM);
+					page=INDEX_JSP;
 				}
 						
 				RequestDispatcher dispatcher=request.getRequestDispatcher(page);

@@ -42,7 +42,7 @@ public final class ConnectionPoolimpl implements ConnectionPool{
 		
 	}
 	
-	public void initPoolData() throws ConnectionPoolException {
+public void initPoolData() throws ConnectionPoolException {
 		try {
 			Class.forName(driverName);
 			givenAwayConQueue = new ArrayBlockingQueue<Connection>(poolSize);

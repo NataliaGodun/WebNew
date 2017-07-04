@@ -14,11 +14,11 @@ import by.htp.service.exception.ServiceException;
 
 public class ShowAll implements Command {
 	private static final String LIST = "List";
-	private static final String MESSAGE1 = " Thre are no available books";
-	private static final String MESSAGE2 = "Sorry, it is impossible to display the page";
-    private static final String TAKEALLJSP= "WEB-INF/jsp/takeAllBook.jsp";
-	private static final String ERRORMESSAGE= "errorMessage";
-	private static final String MAINJSP = "WEB-INF/jsp/main.jsp";
+	private static final String MESSAGE_NO_BOOKS = " There are no available books";
+	private static final String MESSAGE_ABOUT_PROBLEM = "Sorry,technical problem";
+    private static final String TAKE_ALL_JSP= "WEB-INF/jsp/takeAllBook.jsp";
+	private static final String ERROR_MESSAGE= "errorMessage";
+	private static final String MAIN_JSP = "WEB-INF/jsp/main.jsp";
 	
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -32,18 +32,18 @@ public class ShowAll implements Command {
 			ArrayList <Book> List  = bookService.showBooks();
 			if (List.size()==0)	{
 				
-			   request.setAttribute(ERRORMESSAGE, MESSAGE1);
-			   page=MAINJSP;
+			   request.setAttribute(ERROR_MESSAGE, MESSAGE_NO_BOOKS );
+			   page=MAIN_JSP;
 			}
 			else{
 				request.setAttribute(LIST, List);
-			    page=TAKEALLJSP;
+			    page=TAKE_ALL_JSP;
 				
 			}
 		} catch (ServiceException e) {
 			e.printStackTrace();
-			request.setAttribute(ERRORMESSAGE, MESSAGE2);
-			page=MAINJSP;
+			request.setAttribute(ERROR_MESSAGE, MESSAGE_ABOUT_PROBLEM);
+			page=MAIN_JSP;
 		}
 		RequestDispatcher dispatcher=request.getRequestDispatcher(page);
 		
