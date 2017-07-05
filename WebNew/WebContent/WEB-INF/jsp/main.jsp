@@ -19,16 +19,18 @@
 		<input type="hidden" name="command" value="showall" /> <br />
 		<input type="submit" value="Show all books" />
 	</form>
-	
+	<c:if test="${sessionScope.role=='admin' }">
 	<br />
 		<form action="Controller" method="get">
 		<input type="hidden" name="command" value="showAddNewBookForm" /> <br />
 		<input type="submit" value="Add book" />
 	</form>
 	<br />
-		<form action="Controller" method="get">
+	<form action="Controller" method="get">
 		<input type="hidden" name="command" value="showDeleteBookForm" /> <br />
 		<input type="submit" value="Delete book" />
-	</form>
+	</form> 
+	
+	</c:if>
 </body>
 </html>
