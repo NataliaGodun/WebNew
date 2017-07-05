@@ -11,26 +11,30 @@
 
 	<h1>
 		Hello,
-		<c:out value="${ requestScope.user.name} " />
-		
+		<c:out value="${ sessionScope.name} " />	
 	</h1>
 	<br />
 		<form action="Controller" method="get">
 		<input type="hidden" name="command" value="showall" /> <br />
 		<input type="submit" value="Show all books" />
 	</form>
-	<c:if test="${sessionScope.role=='admin' }">
-	<br />
-		<form action="Controller" method="get">
-		<input type="hidden" name="command" value="showAddNewBookForm" /> <br />
-		<input type="submit" value="Add book" />
-	</form>
-	<br />
-	<form action="Controller" method="get">
-		<input type="hidden" name="command" value="showDeleteBookForm" /> <br />
-		<input type="submit" value="Delete book" />
-	</form> 
 	
+	<c:if test="${not empty requestScope.errorMessage }">
+		<br />
+		<c:out value="${requestScope.errorMessage }"/>
+	</c:if>
+	
+	<c:if test="${sessionScope.role=='admin' }">
+		<br />
+		<form action="Controller" method="get">
+			<input type="hidden" name="command" value="showAddNewBookForm" /> <br />
+			<input type="submit" value="Add book" />
+		</form>
+		<br />
+		<form action="Controller" method="get">
+			<input type="hidden" name="command" value="showDeleteBookForm" /> <br />
+			<input type="submit" value="Delete book" />
+		</form> 
 	</c:if>
 </body>
 </html>
