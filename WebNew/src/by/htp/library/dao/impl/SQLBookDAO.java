@@ -42,10 +42,10 @@ public class SQLBookDAO implements BookDAO {
 			rs = ps.executeQuery();
 			while (rs.next()) {
 				int id = rs.getInt(FIRST);
-				String name = rs.getString(SECOND);
-				String nazvanie = rs.getString(THIRD);
+				String writer = rs.getString(SECOND);
+				String NameBook = rs.getString(THIRD);
 				
-				book = new Book(id, name, nazvanie);
+				book = new Book(id,writer, NameBook);
 				List.add(book);
 			}
 		} catch (ConnectionPoolException e) {
@@ -68,7 +68,7 @@ public class SQLBookDAO implements BookDAO {
 	}
 
 	@Override
-	public Book addBook(String nazvanie, String avtor) throws DAOException {
+	public Book addBook(String  nameBook, String writer) throws DAOException {
 		Connection con = null;
 		ResultSet rs = null;
 		Book book= null;
@@ -80,20 +80,20 @@ public class SQLBookDAO implements BookDAO {
 
 			PreparedStatement ps = con.prepareStatement(ADD_BOOK);
 
-			ps.setString(FIRST, avtor);
-			ps.setString(SECOND, nazvanie);
+			ps.setString(FIRST, writer);
+			ps.setString(SECOND,  nameBook);
 			ps.executeUpdate();
 
 			ps = con.prepareStatement(BOOK_SELECT);
-			ps.setString(FIRST, avtor);
-			ps.setString(SECOND,nazvanie );
+			ps.setString(FIRST, writer);
+			ps.setString(SECOND, nameBook );
 			rs = ps.executeQuery();
 			while (rs.next()) {
 				int id = rs.getInt(FIRST);
-				String NazvanieKnigi = rs.getString(SECOND);
-				String AvtorKnigi = rs.getString(THIRD);
+				String NameBook = rs.getString(SECOND);
+				String Writer = rs.getString(THIRD);
 				
-				book= new Book(id, NazvanieKnigi , AvtorKnigi);
+				book= new Book(id, NameBook , Writer);
 			}
 			
 
@@ -134,10 +134,10 @@ public class SQLBookDAO implements BookDAO {
 			rs = ps.executeQuery();
 			while (rs.next()) {
 				int idBD = rs.getInt(FIRST);
-				String NazvanieKnigi = rs.getString(SECOND);
-				String AvtorKnigi = rs.getString(THIRD);
+				String NameBook= rs.getString(SECOND);
+				String Writer = rs.getString(THIRD);
 				
-				book= new Book(idBD, NazvanieKnigi , AvtorKnigi);
+				book= new Book(idBD, NameBook , Writer);
 			}
 			
 
@@ -158,7 +158,7 @@ public class SQLBookDAO implements BookDAO {
 	}
 
 	@Override
-	public Book deleteBook(String nazvanie, String avtor) throws DAOException {
+	public Book deleteBook(String  nameBook, String writer) throws DAOException {
 		Connection con = null;
 		ResultSet rs = null;
 		Book book= null;
@@ -170,21 +170,21 @@ public class SQLBookDAO implements BookDAO {
 			
 			PreparedStatement ps = con.prepareStatement(DELETE_BOOK_NAME_WRITER );
 
-			ps.setString(FIRST, avtor);
-			ps.setString(SECOND, nazvanie);
+			ps.setString(FIRST, writer);
+			ps.setString(SECOND, nameBook);
 			
 			ps.executeUpdate();
 
 			ps = con.prepareStatement(BOOK_SELECT);
-			ps.setString(FIRST, avtor);
-			ps.setString(SECOND,nazvanie );
+			ps.setString(FIRST, writer);
+			ps.setString(SECOND, nameBook);
 			rs = ps.executeQuery();
 			while (rs.next()) {
 				int id = rs.getInt(FIRST);
-				String NazvanieKnigi = rs.getString(SECOND);
-				String AvtorKnigi = rs.getString(THIRD);
+				String  NameBook = rs.getString(SECOND);
+				String Writer = rs.getString(THIRD);
 				
-				book= new Book(id, NazvanieKnigi , AvtorKnigi);
+				book= new Book(id,  NameBook , Writer);
 			}
 
 		} catch (ConnectionPoolException e) {

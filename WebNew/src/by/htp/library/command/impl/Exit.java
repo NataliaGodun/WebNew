@@ -13,10 +13,11 @@ public class Exit implements Command {
 	private static final String INDEX_JSP ="index.jsp";
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		HttpSession session=request.getSession(true);
 		session.invalidate();
-		RequestDispatcher dispatcher=request.getRequestDispatcher(INDEX_JSP);
 		
+		RequestDispatcher dispatcher=request.getRequestDispatcher(INDEX_JSP);
 		dispatcher.forward(request, response);
 
 	}

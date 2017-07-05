@@ -29,18 +29,18 @@ public class BookServiceImpl implements BookService {
 	}
 
 	@Override
-	public Book addBook(String nazvanie, String avtor) throws ServiceException {
-		if (nazvanie==null||nazvanie.isEmpty()){
+	public Book addBook(String nameBook, String writer) throws ServiceException {
+		if (nameBook==null||nameBook.isEmpty()){
 			throw new ServiceException( MESSAGE_WRONG_NAME  );
 		}
-		if (avtor==null||avtor.isEmpty()){
+		if (writer==null||writer.isEmpty()){
 			throw new ServiceException( MESSAGE_WRONG_WRITER );
 		}
 		
 		DAOFactory daoObjectFactory=DAOFactory.getInstance();
 		BookDAO bookDAO=daoObjectFactory.getBookDAO();
 		try {
-			return bookDAO.addBook(nazvanie,avtor);
+			return bookDAO.addBook(nameBook,writer);
 		} catch (DAOException e) {
 			throw new ServiceException(e);
 		}	
@@ -61,17 +61,17 @@ public class BookServiceImpl implements BookService {
 	}
 
 	@Override
-	public Book deleteBook(String nazvanie, String avtor) throws ServiceException {
-		if (nazvanie==null||nazvanie.isEmpty()){
+	public Book deleteBook(String nameBook, String writer) throws ServiceException {
+		if (nameBook==null||nameBook.isEmpty()){
 			throw new ServiceException( MESSAGE_WRONG_NAME  );
 		}
-		if (avtor==null||avtor.isEmpty()){
+		if (writer==null||writer.isEmpty()){
 			throw new ServiceException( MESSAGE_WRONG_WRITER );
 		}
 		DAOFactory daoObjectFactory=DAOFactory.getInstance();
 		BookDAO bookDAO=daoObjectFactory.getBookDAO();
 		try {
-			return bookDAO.deleteBook(nazvanie,avtor);
+			return bookDAO.deleteBook(nameBook,writer);
 		} catch (DAOException e) {
 			throw new ServiceException(e);
 		}	

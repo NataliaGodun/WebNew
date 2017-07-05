@@ -24,11 +24,9 @@ public class AddNewBook implements Command {
 	private static final String ERROR_JSP = "error.jsp";
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String nazvanie;
-		String avtor;
 		
-		nazvanie=request.getParameter(NAME_BOOK);
-		avtor=request.getParameter(NAME_WRITER);
+		String	nameBook = request.getParameter(NAME_BOOK);
+		String writer = request.getParameter(NAME_WRITER);
 		
 		ServiceFactory factory=ServiceFactory.getInstance();
 		BookService bookService=factory.getBookService();
@@ -36,7 +34,7 @@ public class AddNewBook implements Command {
 		Book book = null;
 		String page = null;
 		try {
-			book = bookService.addBook(nazvanie, avtor);
+			book = bookService.addBook(nameBook, writer);
 			if (book!=null)	{
 				int i=book.getId();
 				String url=URL_VIEW_BOOK+i;
