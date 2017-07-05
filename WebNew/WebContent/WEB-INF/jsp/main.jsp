@@ -36,5 +36,10 @@
 			<input type="submit" value="Delete book" />
 		</form> 
 	</c:if>
+	<br />
+		<form action="Controller" method="get">
+		<input type="hidden" name="command" value="exit" /> <br />
+		<input type="submit" value="Exit" />
+	</form>
 </body>
 </html>

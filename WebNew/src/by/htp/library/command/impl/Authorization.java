@@ -43,7 +43,7 @@ public class Authorization implements Command {
 				String role=user.getRole();
 				String name=user.getName();
 				
-				HttpSession session=request.getSession();
+				HttpSession session=request.getSession(true);
 				session.setAttribute(ROLE, role);
 				session.setAttribute(NAME_USER, name);
 				request.setAttribute(USER , user);
