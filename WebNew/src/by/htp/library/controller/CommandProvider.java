@@ -10,7 +10,7 @@ import by.htp.library.command.impl.DeleteBook;
 import by.htp.library.command.impl.Exit;
 import by.htp.library.command.impl.Registration;
 import by.htp.library.command.impl.ShowAddNewBookForm;
-import by.htp.library.command.impl.ShowAll;
+import by.htp.library.command.impl.ViewAllBooks;
 import by.htp.library.command.impl.ShowDeleteBookForm;
 import by.htp.library.command.impl.ViewBook;
 
@@ -21,13 +21,14 @@ public class CommandProvider {
 	public CommandProvider() {
 		commands.put(CommandName.AUTHORIZATION, new Authorization());
 		commands.put(CommandName.REGISTRATION, new Registration());
-		commands.put(CommandName.SHOWALL, new ShowAll());
+		//commands.put(CommandName.SHOWALL, new ViewAllBooks());
 		commands.put(CommandName.SHOWADDNEWBOOKFORM, new ShowAddNewBookForm());
 		commands.put(CommandName.ADDNEWBOOK, new AddNewBook());
 		commands.put(CommandName.VIEWBOOK, new ViewBook());
 		commands.put(CommandName.SHOWDELETEBOOKFORM, new ShowDeleteBookForm());
 		commands.put(CommandName.DELETEBOOK, new DeleteBook());
 		commands.put(CommandName.EXIT, new Exit());
+		commands.put(CommandName.VIEWALLBOOKS, new ViewAllBooks());
 	}
 
 	public Command getCommand(String commandName) {

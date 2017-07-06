@@ -20,7 +20,7 @@ public class DeleteBook implements Command {
 	private static final String MESSAGE_FAIL_DELETE = "The book is not delete!";
 	private static final String MESSAGE_ABOUT_PROBLEM = "Sorry,technical problem";
 	private static final String MESSAGE_SUCCESSFUL_DELETE = "&Message=Book successful delete!";
-	private static final String URL_VIEW_ALL_BOOK=" http://localhost:8080/WebNew/Controller?command=showall";
+	private static final String URL_VIEW_ALL_BOOK=" http://localhost:8080/WebNew/Controller?command=viewAllBooks";
 	private static final String ERROR_JSP = "error.jsp";
 	private static final String VIEW_JSP = "WEB-INF/jsp/viewBook.jsp";
 	@Override

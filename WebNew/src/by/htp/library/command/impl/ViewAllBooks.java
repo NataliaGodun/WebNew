@@ -6,15 +6,13 @@ import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
 import by.htp.library.command.Command;
 import by.htp.library.domain.Book;
 import by.htp.library.service.BookService;
 import by.htp.library.service.factory.ServiceFactory;
 import by.htp.service.exception.ServiceException;
 
-public class ShowAll implements Command {
+public class ViewAllBooks implements Command {
 	private static final String LIST = "List";
 	private static final String MESSAGE_NO_BOOKS = " There are no available books";
 	private static final String MESSAGE_ABOUT_PROBLEM = "Sorry,technical problem";

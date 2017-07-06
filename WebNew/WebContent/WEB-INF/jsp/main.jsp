@@ -15,8 +15,8 @@
 	</h1>
 	<br />
 		<form action="Controller" method="get">
-		<input type="hidden" name="command" value="showall" /> <br />
-		<input type="submit" value="Show all books" />
+		<input type="hidden" name="command" value="viewAllBooks" /> <br />
+		<input type="submit" value="View all books" />
 	</form>
 	
 	<c:if test="${not empty requestScope.errorMessage }">
