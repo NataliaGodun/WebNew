@@ -7,10 +7,18 @@
 <title>Insert title here</title>
 </head>
 <body>
-<form action="Controller" method="post">
+	Select :
+	<br/>
+	<br/>
+	<form action="Controller" method="get">
 		<input type="hidden" name="command" value="editProfileNameForm" /> 
-		
 		<input type="submit" value="Changes name" />
+	</form>
+	<br/>
+	<br/>
+	<form action="Controller" method="get">
+		<input type="hidden" name="command" value="editProfilePasswordForm" /> 
+		<input type="submit" value="Changes password" />
 	</form>
 </body>
 </html>

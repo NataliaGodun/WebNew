@@ -9,4 +9,6 @@ public interface UserService {
 	User registration(String name, String login, String password) throws ServiceException;
 
 	User editProfileName(String name, String login)throws ServiceException;
+
+	User editProfilePassword(String password, String login)throws ServiceException;
 }

@@ -10,4 +10,6 @@ public interface UserDAO {
 
 
 	User editProfileName(String name, String login)throws DAOException;
+
+	User editProfilePassword(String password, String login)throws DAOException;
 }

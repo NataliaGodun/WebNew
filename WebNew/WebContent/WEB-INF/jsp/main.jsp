@@ -14,6 +14,11 @@
 		<c:out value="${ sessionScope.name} " />	
 	</h1>
 	<br />
+	<c:if test="${not empty requestScope.message }">
+		<br />
+		<c:out value="${requestScope.message }"/>
+	</c:if>
+	<br />
 		<form action="Controller" method="get">
 		<input type="hidden" name="command" value="viewAllBooks" /> <br />
 		<input type="submit" value="View all books" />

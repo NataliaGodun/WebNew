@@ -10,6 +10,7 @@ import by.htp.service.exception.ServiceException;
 public class UserServiceImpl implements UserService {
 	private static final String MESSAGE_WRONG_LOGIN = "Incorrect login!";
 	private static final String MESSAGE_WRONG_PASSWORD= "Incorrect password!";
+	private static final String MESSAGE_WRONG_NAME= "Incorrect name!";
 	
 	@Override
 	public User authorization(String login, String password) throws ServiceException{
@@ -51,7 +52,7 @@ public class UserServiceImpl implements UserService {
 			throw new ServiceException(MESSAGE_WRONG_LOGIN);
 		}
 		if (name==null||name.isEmpty()){
-			throw new ServiceException(MESSAGE_WRONG_PASSWORD);
+			throw new ServiceException(MESSAGE_WRONG_NAME);
 		}
 		DAOFactory daoObjectFactory=DAOFactory.getInstance();
 		UserDAO userDAO=daoObjectFactory.getUserDAO();
@@ -62,5 +63,21 @@ public class UserServiceImpl implements UserService {
 		}
 	}
 
+	@Override
+	public User editProfilePassword(String password, String login) throws ServiceException {
+		if (login==null||login.isEmpty()){
+			throw new ServiceException(MESSAGE_WRONG_LOGIN);
+		}
+		if (password==null||password.isEmpty()){
+			throw new ServiceException(MESSAGE_WRONG_PASSWORD);
+		}
+		DAOFactory daoObjectFactory=DAOFactory.getInstance();
+		UserDAO userDAO=daoObjectFactory.getUserDAO();
+		try {
+			return userDAO.editProfilePassword(password,login);
+		} catch (DAOException e) {
+			throw new ServiceException(e);
+		}
+	}
 
 }
