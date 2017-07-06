@@ -55,7 +55,6 @@ public class Authorization implements Command {
 				
 			}
 		} catch (ServiceException e) {
-			e.printStackTrace();
 			request.setAttribute( ERROR_MESSAGE, MESSAGE_ABOUT_PROBLEM);
 			page=INDEX_JSP;
 		}

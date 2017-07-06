@@ -21,7 +21,6 @@ public class CommandProvider {
 	public CommandProvider() {
 		commands.put(CommandName.AUTHORIZATION, new Authorization());
 		commands.put(CommandName.REGISTRATION, new Registration());
-		//commands.put(CommandName.SHOWALL, new ViewAllBooks());
 		commands.put(CommandName.SHOWADDNEWBOOKFORM, new ShowAddNewBookForm());
 		commands.put(CommandName.ADDNEWBOOK, new AddNewBook());
 		commands.put(CommandName.VIEWBOOK, new ViewBook());

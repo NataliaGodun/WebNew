@@ -51,7 +51,6 @@ public class ViewBook implements Command {
 				
 			}
 		} catch (ServiceException e) {
-			e.printStackTrace();
 			request.setAttribute(ERROR_MESSAGE, MESSAGE_ABOUT_PROBLEM);
 			page=MAIN_JSP;
 		}

@@ -48,7 +48,6 @@ public class AddNewBook implements Command {
 				dispatcher.forward(request, response);
 			}
 		} catch (ServiceException e) {
-			e.printStackTrace();
 			request.setAttribute(ERROR_MESSAGE, MESSAGE_ABOUT_PROBLEM);
 			page=ERROR_JSP;
 			RequestDispatcher dispatcher=request.getRequestDispatcher(page);
