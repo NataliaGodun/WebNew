@@ -49,9 +49,9 @@ public class EditProfileName implements Command {
 		try {
 			user = userService.editProfileName(name,login);
 			if (user!=null){
-				
-				session.removeAttribute(USER);
-				session.setAttribute(USER, user);
+				String Name=user.getName();
+				session.removeAttribute(NAME_USER);
+				session.setAttribute(NAME_USER, Name);
 				
 				request.setAttribute(USER, user);
 				page=MAIN_JSP;

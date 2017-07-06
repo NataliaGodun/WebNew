@@ -22,14 +22,14 @@ public class Authorization implements Command {
 	private static final String MESSAGE_ABOUT_PROBLEM = "Sorry,technical problem";
 	private static final String MAIN_JSP = "WEB-INF/jsp/main.jsp";
 	private static final String INDEX_JSP = "index.jsp";
+	private static final String ROLE= "role";
+	private static final String NAME_USERS= "name";
 	
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String login;
-		String password;
-		
-		login=request.getParameter(LOGIN);
-		password=request.getParameter(PASSWORD);
+		 
+		String login=request.getParameter(LOGIN);
+		String password=request.getParameter(PASSWORD);
 		
 		ServiceFactory factory=ServiceFactory.getInstance();
 		UserService userService=factory.getUserService();
@@ -39,9 +39,12 @@ public class Authorization implements Command {
 		try {
 			user = userService.authorization(login, password);
 			if (user!=null)	{
-			
+				String role=user.getRole();
+				String name=user.getName();
 				HttpSession session=request.getSession(true);
-				session.setAttribute(USER, user);
+				
+				session.setAttribute(NAME_USERS, name);
+				session.setAttribute(ROLE, role);
 				session.setAttribute(LOGIN,login);
 				request.setAttribute(USER , user);
 			     page=MAIN_JSP ;
