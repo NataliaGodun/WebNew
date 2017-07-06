@@ -16,17 +16,23 @@
 		
 		Available books: <br />
 		<br />
+		</h1>
 		<c:forEach items="${requestScope.List}" var="List">
-			
+			<h2>
 			<c:out value=" ${List.nazvanie}" />
-			<c:out value=" ${List.avtor}" />
+			<c:out value=" ${List.avtor}" /> 
+			</h2>
 			<form action="Controller" method="get">
 			<input type="hidden" name="command" value="viewBook"/>
 			<input type="hidden" name="id" value=" ${List.id}" />
-			<input type="submit" value="view book"/>
+			<input type="submit" value="View book"/>
+			</form><br />
+			<form action="Controller" method="get">
+			<input type="hidden" name="command" value="ReadBook"/>
+			<input type="submit" value="Read book"/>
 			</form>
 			<br />
 		</c:forEach>
-	</h1>
+	
 </body>
 </html>
