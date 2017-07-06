@@ -11,7 +11,7 @@
 
 	<h1>
 		Hello,
-		<c:out value="${ sessionScope.name} " />	
+		<c:out value="${ sessionScope.user.name} " />	
 	</h1>
 	<br />
 		<form action="Controller" method="get">
@@ -24,7 +24,12 @@
 		<c:out value="${requestScope.errorMessage }"/>
 	</c:if>
 	
-	<c:if test="${sessionScope.role=='admin' }">
+	<br />
+		<form action="Controller" method="get">
+		<input type="hidden" name="command" value="showEditProfileForm" /> <br />
+		<input type="submit" value="Edit profile" />
+	</form>
+	<c:if test="${sessionScope.user.role=='admin' }">
 		<br />
 		<form action="Controller" method="get">
 			<input type="hidden" name="command" value="showAddNewBookForm" /> <br />

@@ -45,4 +45,22 @@ public class UserServiceImpl implements UserService {
 		}	
 	}
 
+	@Override
+	public User editProfileName(String name, String login) throws ServiceException {
+		if (login==null||login.isEmpty()){
+			throw new ServiceException(MESSAGE_WRONG_LOGIN);
+		}
+		if (name==null||name.isEmpty()){
+			throw new ServiceException(MESSAGE_WRONG_PASSWORD);
+		}
+		DAOFactory daoObjectFactory=DAOFactory.getInstance();
+		UserDAO userDAO=daoObjectFactory.getUserDAO();
+		try {
+			return userDAO.editProfileName(name,login);
+		} catch (DAOException e) {
+			throw new ServiceException(e);
+		}
+	}
+
+
 }

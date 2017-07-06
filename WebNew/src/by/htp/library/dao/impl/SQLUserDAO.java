@@ -4,6 +4,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
+import javax.servlet.http.HttpSession;
+
 import by.htp.connection.pool.ConnectionPoolFactory;
 import by.htp.connection.pool.ConnectionPool;
 import by.htp.connection.pool.ConnectionPoolException;
@@ -15,6 +18,7 @@ public class SQLUserDAO implements UserDAO {
 	private static final String USER_SELECT_LOGIN_PASSWORD  = "SELECT * FROM USERS WHERE LOGIN=? AND PASSWORD=? AND STATUS='EXIST'";
 	private static final String USER_SELECT_LOGIN = "SELECT * FROM USERS WHERE LOGIN=? AND STATUS='EXIST'";
 	private static final String USER_ADD = "INSERT INTO USERS (NAME,LOGIN,PASSWORD,ROLE,STATUS) VALUES (?,?,?,?,?)";
+	private static final String EDIT_PROFILE_NAME = "UPDATE USERS SET NAME=? WHERE LOGIN=? AND STATUS='EXIST'";
 	private static final String GUEST ="guest";
 	private static final String EXIST ="exist";
 	private static final int FIRST = 1;
@@ -120,4 +124,48 @@ public class SQLUserDAO implements UserDAO {
 		return user;
 	}
 
+	@Override
+	public User editProfileName(String name, String login) throws DAOException {
+		Connection con = null;
+		ResultSet rs = null;
+		User user = null;
+		
+		ConnectionPoolFactory ObjectCPFactory = ConnectionPoolFactory.getInstance();
+		ConnectionPool cp = ObjectCPFactory.getConnectionPool();
+		try {
+			con = cp.takeConnection();
+			
+			PreparedStatement ps = con.prepareStatement(EDIT_PROFILE_NAME );
+			ps.setString(FIRST, name);
+			ps.setString(SECOND, login);
+			ps.executeUpdate();
+
+			ps = con.prepareStatement(USER_SELECT_LOGIN );
+			ps.setString(FIRST, login);
+			rs = ps.executeQuery();
+			while (rs.next()) {
+				int id = rs.getInt(FIRST);
+				String nameBD = rs.getString(SECOND);
+				String loginBD = rs.getString(THIRD);
+				String passwordBD = rs.getString(FOURTH);
+				String role = rs.getString(FIFTH);
+				user = new User(id, nameBD, loginBD, passwordBD, role);
+			}
+			}catch (ConnectionPoolException e) {
+				throw new DAOException(e);
+			} catch (SQLException e) {
+				throw new DAOException(e);
+			}
+			finally{
+				try {
+					cp.removeConnection();
+				} catch (ConnectionPoolException e) {
+					// Log.ERROR
+					e.printStackTrace();
+				}
+		}
+		return user;
+	}
+
+	
 }
